@@ -1,0 +1,300 @@
+Acer
+Z3-700
+17.5
+6
+2015
+600
+
+Wacom
+MobileStudio Pro 16
+15.6
+6
+2016
+2400
+
+Microsoft
+Surface Book 2 15"
+13.5
+6
+2015
+2500
+
+HP
+ZBook x2
+14.0
+8
+2017
+2280
+
+Acer
+Switch 7 Black Edition
+13.5
+8
+2018
+1700
+
+Chuwi
+CoreBook
+13.3
+7
+2018
+680
+
+Fujitsu
+Stylistic Q736
+13.3
+6
+2016
+1400
+
+Porsche
+Design Book One
+13.3
+7
+2017
+2500
+
+Asus
+Transformer 3 (T305CA)
+12.6
+7
+2016
+750
+
+Acer
+Aspire Switch 12 S
+12.5
+6
+2016
+1000
+
+Dell
+XPS 12 (2015)
+12.5
+6
+2015
+1000
+
+Dell
+Latitude 5290 2-in-1
+12.3
+8
+2018
+900
+
+Eve
+V
+12.3
+7
+2017
+1600
+
+Microsoft
+Surface Pro (2017)
+12.3
+7
+2017
+800
+
+Vaio
+Z Canvas
+12.3
+4
+2015
+2200
+
+Lenovo
+Miix 520
+12.2
+8
+2017
+600
+
+HP
+Pavilion x2
+12.1
+6
+2016
+500
+
+Acer
+Aspire Switch Alpha 12
+12.0
+6
+2016
+700
+
+Acer
+Switch 5
+12.0
+7
+2017
+800
+
+HP
+Elite x2 1012
+12.0
+6
+2015
+900
+
+Lenovo
+Thinkpad X1 Tablet (2017)
+12.0
+7
+2017
+1000
+
+Dell
+Inspiron 17 7000 2-in-1
+17.3
+8
+2017
+950
+
+Acer
+Nitro 5 Spin
+15.6
+8		
+2017
+1000
+
+Asus
+ZenBook Flip 15
+15.6
+8
+2017
+1000
+
+Dell
+Inspiron 15 7000 2-in-1
+15.6
+8
+2017
+850
+
+HP
+Envy x360 15 (2017)
+15.6
+7
+2017
+900
+
+HP
+Spectre x360 15 (early 2018)
+15.6
+8
+2018
+1450
+
+Lenovo
+IdeaPad Flex 5 15"
+15.6
+7
+2017
+930
+
+Lenovo
+Yoga 520
+14.0
+7
+2017
+1000
+
+Acer
+Aspire R 13 (R7-372T)
+13.3
+6
+2015
+900
+
+Asus
+ZenBook Flip S
+13.3
+7
+2017
+1000
+
+Dell
+Latitude 7390 2-in-1
+13.3
+8
+2017
+1150
+
+Dell
+Inspiron 13 7000 2-in-1
+13.3
+8
+2017
+900
+
+Fujitsu
+Lifebook Y936
+13.3
+6
+2015
+1400
+
+HP
+EliteBook x360 (1030 G2)
+13.3
+7
+2017
+1250
+
+HP
+Spectre x360 13 (late 2017)
+13.3
+8
+2017
+1150
+
+Lenovo
+ThinkPad L380 Yoga
+13.3
+8
+2018
+740
+
+Lenovo
+ThinkPad X380 Yoga
+13.3
+8
+2018
+1360
+
+Lenovo
+Yoga 720 13"
+13.3
+7
+2017
+700
+
+Samsung
+Notebook 9 Pen
+13.3
+8
+2018
+1400
+
+Samsung
+Notebook 9 Pro 13"
+13.3
+7
+2017
+1000
+
+Vaio
+Z flip
+13.3
+6
+2016
+1800
+
+Lenovo
+Yoga 900S
+12.5
+6
+2016
+1600
