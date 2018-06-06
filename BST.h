@@ -37,6 +37,7 @@ private:
 	bstdata minimumHelper(Node* root) const; //no wrapper -> for removeHelper function
 	void getSizeHelper(Node* root, int& size) const;
 	bool searchHelper(Node* root, bstdata data) const;
+	bstdata * findHelper(Node * root, bstdata data) const;
 	void insertHelper(Node* root, bstdata data);
 	Node* removeHelper(Node* root, bstdata data);
 	void printToConsoleHelper(Node* root, int& index) const;
@@ -51,6 +52,7 @@ public:
 	bstdata getRoot() const;
 	int getSize() const;
 	bool search(bstdata data) const;
+	bstdata * find(bstdata data) const;
 	void insert(bstdata data);
 	void remove(bstdata data);
 	void printToConsole() const;
@@ -171,6 +173,32 @@ bool BST<bstdata>::searchHelper(Node* root, bstdata data) const {
 			return searchHelper(root->right, data);
 	}
 	return false;	//optional depending on compiler
+}
+
+/* find and findHelper modified from search and searchHelper by Andrew 6/6 - may need addt'l testing */
+
+template<class bstdata>
+bstdata* BST<bstdata>::find(bstdata data) const {
+	assert(!isEmpty());
+	return findHelper(root, data);
+}
+
+template<class bstdata>
+bstdata * BST<bstdata>::findHelper(Node * root, bstdata data) const {
+	if (data == root->data)
+		return &(root -> data);
+	else if (data < root->data) {
+		if (root->left == NULL)
+			return NULL;
+		else
+			return findHelper(root->left, data);
+	} else {
+		if (root->right == NULL)
+			return NULL;
+		else
+			return findHelper(root->right, data);
+	}
+	return NULL;	//optional depending on compiler
 }
 
 //Insert a new value
