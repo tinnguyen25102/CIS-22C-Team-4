@@ -1,3 +1,10 @@
+/*
+ * Heap.h
+ *
+ *  Created on: Jun 2, 2018
+ *      Author: Andrew Maxwell
+ */
+
 #ifndef HEAP_H_
 #define HEAP_H_
 
@@ -34,21 +41,17 @@ public:
     //Called as a helper function of the constructor
     //Calls heapify as a helper function
 
-    void insert(Order * o);
+    void place(Order * o, int days);
     //Inserts a new value onto the end of the heap and
     //Bubbles it up to the correct location in the heap
     //Calls heap_increase_key as a helper function
 
-    void remove(int index);
+    void ship(int index);
     //removes the node at the provided index of the heap
     //pre: 1 <= i <= get_size()
 
-    vector<int> sort();
-    //sorts a heap into ascending order
-    //returns the sorted array of values
-    //post: heap restored to max heap
-    //calls build heap as a helper function
-    //calls heapify as a helper function
+    void ship(Order * o);
+    //removes the order from the heap
 
     /**Access Functions*/
 
@@ -79,9 +82,8 @@ public:
 
     void displayHeap(ostream& out) const;
     //prints the heap in level order
-    //Hint: level = floor(log2(i) + 1)
 
-    void displayArray(ostream& out) const;
+    void printSorted(ostream& out);
     //prints each element in the array (heap) separated by a comma
 
 };
