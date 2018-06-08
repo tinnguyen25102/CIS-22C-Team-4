@@ -36,7 +36,7 @@ using namespace std;
     //bubbles an element down to its proper location within the heap
 
     void Heap::heap_increase_key(int i, Order * key) {
-    	if (heap -> at(floor(i/2)) < key) {
+    	if (*heap -> at(floor(i/2)) < *key) {
     		heap -> at(i) = heap -> at(floor(i/2));
     		heap -> at(floor(i/2)) = key;
     		heap_increase_key(floor(i/2), key);
@@ -67,7 +67,12 @@ using namespace std;
     //Called as a helper function of the constructor
     //Calls heapify as a helper function
 
-    void Heap::insert(Order * o) {
+    void Heap::place(Order * o, int days) {
+    	if (o == NULL) {
+    		return;
+    	}
+    	assert (!o -> isShipped());
+    	o -> placeOrder(days);
     	heap -> push_back(o);
     	heap_size++;
     	heap_increase_key(heap_size, o);
@@ -76,41 +81,29 @@ using namespace std;
     //Bubbles it up to the correct location in the heap
     //Calls heap_increase_key as a helper function
 
-    void Heap::remove(int index) {
+    void Heap::ship(int index) {
     	assert(1 <= index);
     	assert(index <= heap_size);
+    	heap -> at(index) -> ship();
     	heap -> at(index) = heap -> at(heap_size);
     	heap -> pop_back();
     	heap_size--;
     	heapify(index);
     }
+
+    void Heap::ship(Order * o) {
+    	for (unsigned i = 0; i < heap -> size(); i++) {
+    		if (heap -> at(i) == o) {
+    			ship(i);
+    		}
+    	}
+    }
     //removes the node at the provided index of the heap
     //pre: 1 <= i <= get_size()
 
-    vector<int> Heap::sort() {
-    	int realLength = heap_size;
-    	while (heap_size > 1) {
-    		Order * swap = heap -> at(1);
-    		heap -> at(1) = heap -> at(heap_size);
-    		heap -> at(heap_size) = swap;
-    		heap_size--;
-    		heapify(1);
-    	}
-    	vector<Order *> toReturn = *heap;
-    	toReturn.erase(toReturn.begin());
-    	heap_size = realLength;
-    	build_heap();
-    	return toReturn;
-    }
-    //sorts a heap into ascending order
-    //returns the sorted array of values
-    //post: heap restored to max heap
-    //calls build heap as a helper function
-    //calls heapify as a helper function
-
     /**Access Functions*/
 
-    Order * Heap::get_max() const { //TODO: Is this right, or should I not assume that the heap is sorted already?
+    Order * Heap::get_max() const {
         assert(heap_size > 0);
         return heap -> at(1);
     }
@@ -157,21 +150,24 @@ using namespace std;
     /**Additional Operations*/
 
     void Heap::displayHeap(ostream& out) const {
-    	int level = 0;
         for (int i = 1; i <= heap_size; i++) {
-            if (floor(log2(i)) > level) {
-                out << endl;
-                level++;
-            }
-            out << heap -> at(i) << " ";
+            heap -> at(i) -> print(out);
         }
     }
-    //prints the heap in level order
-    //Hint: level = floor(log2(i) + 1)
 
-    void Heap::displayArray(ostream& out) const {
-        for (int i = 1; i <= heap_size; i++) {
-            out << heap -> at(i) << " ";
+    void Heap::printSorted(ostream& out) {
+    	int realLength = heap_size;
+    	while (heap_size > 1) {
+    		Order * swap = heap -> at(1);
+    		heap -> at(1) = heap -> at(heap_size);
+    		heap -> at(heap_size) = swap;
+    		heap_size--;
+    		heapify(1);
+    	}
+    	heap_size = realLength;
+        for (int i = heap_size; i >= 1; i--) {
+            heap -> at(i) -> print(out);
         }
+    	build_heap();
     }
-    //prints each element in the array (heap) separated by a comma
+    //prints each element in the array (heap) on a different line

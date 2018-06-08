@@ -2,39 +2,26 @@
  * Order.h
  *
  *  Created on: Jun 2, 2018
- *      Author: Andrew
+ *      Author: Andrew Maxwell
  */
 
 #ifndef ORDER_H_
 #define ORDER_H_
 
 #include "List.h"
-#include "Product.h"
+#include "SubOrder.h"
+#include "BST.h"
+#include <ctime>
 using namespace std;
 
 class Order {
 	
 private:
-	struct subOrder {
-		Product * laptop;
-		int quantity = 1;
-		float price;
-		subOrder(Product * toBuy) {
-			laptop = toBuy;
-			price = toBuy -> getPrice();
-		}
-		void setQuantity(int q) {
-			quantity = q;
-			price = laptop -> getPrice() * q;
-		}
-		void print(ostream & out) {
-			out << endl << laptop -> getMake() << endl << "Quantity: " << quantity;
-		}
-	};
 	List<subOrder> laptops;
-	int shippingSpeed, dayPlaced;
+	int shippingSpeed;
+	time_t timePlaced, arriveBy;
 	bool placed, shipped;
-	float price;
+	float price;	//TODO: Figure out how to handle shipping/delivery. E.g. have an employee enter when it's delivered, or have it record a ship time and chnage it to delivered after the shipping time has elapsed?
 	
 public:
 	
@@ -44,10 +31,10 @@ public:
 
 	/** management functions - getters and setters*/
 
-	int getArriveBy() const;
+	string getArriveBy() const;
 	//returns the date that the order should arrive, determined based on day order is placed and shipping speed
 
-	int getDayPlaced() const;
+	string getDayPlaced() const;
 	//returns the date the order was placed
 
 	int getShippingSpeed() const;
@@ -83,9 +70,6 @@ public:
 	void placeOrder(int daysToShip);
 	//places the order; sets it as ready to ship
 
-	void stopOrder();
-	//"un-places" the order
-
 	bool operator>(const Order&);
 	//Compares orders based on when they need to ship. Used for priority queue.
 
@@ -98,9 +82,11 @@ public:
 	void print(ostream & out);
 
 	void printDetailed(ostream & out);
+
+	void save(ostream & out);
+
+	Order * load(istream & in, BST<Product> & products);
 };
-
-
 
 
 #endif /* ORDER_H_ */
