@@ -1,113 +1,105 @@
 /*
- * Class.h
+ * Customer.cpp
  *
- *  Created on: May 31, 2018
- *      Author: tinnguyen
+ *  Created on: Jun 7, 2018
+ *      Author: vupham
  */
 
-#ifndef CUSTOMER_H_
-#define CUSTOMER_H_
-
-#include <string>
+#include "Customer.h"
+#include <iostream>
 #include "List.h"
 #include "Order.h"
-#include <iostream>
+#include <iomanip>
+#include <fstream>
 using namespace std;
 
-class Customer {
-private:
-	string first_name;
-	string last_name;
-	string address;
-	string city;
-	string state;
-	int zip;
-	List<Order> orders;
+Customer::Customer() {
+	username = "";
+	password = "";
+	firstname = "";
+	lastname = "";
+	isEmployee = false;
+	address = "";
+	city = "";
+	zip = 0;
+	email = "";
+}
 
-public:
+Customer::Customer(string username, string password, string firstName, string lastName, bool isEmployee, string address, string city, unsigned zip, string email) {
+	this->username = username;
+	this->password = password;
+	this->firstname = firstName;
+	this->lastname = lastName;
+	this->isEmployee = isEmployee;
+	this->address = address;
+	this->city = city;
+	this->zip = zip;
+	this->email = email;
+}
 
-	Customer() {
-		first_name = "";
-		last_name = "";
-		address = "";
-		city = "";
-		state = "";
-		zip = 0;
-		//orders=;
-	}
-	Customer(string fname, string lname, string address, string city, string state, int zip, orders order){
-		this->first_name=fname;
-		this->last_name=lname;
-		this->address=address;
-		this->city=city;
-		this->state=state;
-		this->zip=zip;
-		this->orders=order;
-	}
+string Customer::getAddress() const {
+	return address;
+}
 
-	//setters functions:
-	void set_First_Name(string firstname){
-		this->first_name = firstname;
-	}
-	void set_Last_Name(string lastname){
-			this->last_name = lastname;
-		}
-	void set_Address(string address){
-		this->address=address;
-	}
-	void set_State(string state){
-		this->state=state;
-	}
-	void set_City(string city){
-		this->city=city;
-	}
-	void set_Zip(int zip){
-		this->zip=zip;
-	}
+string Customer::getCity() const {
+	return city;
+}
 
-	//getters function:
+unsigned Customer::getZip() const {
+	return zip;
+}
 
-	string get_First_Name(){
-		return first_name;
-	}
-	string get_Last_Name(){
-		return last_name;
-	}
-	string get_Address(){
-		return address;
-	}
-	string get_State(){
-		return state;
-	}
-	string get_City(){
-		return city;
-	}
-	int get_Zip(){
-		return zip;
-	}
+string Customer::getEmail() const {
+	return email;
+}
 
-	bool operator==(const Customer& customer) {
-		return (first_name == customer.first_name && last_name == customer.last_name);
-	}
+void Customer::setAddress(string address) {
+	this->address = address;
+}
 
-	bool operator<(const Customer& customer) {
-		if (first_name < customer.first_name)
+void Customer::setCity(string city) {
+	this->city = city;
+}
+
+void Customer::setZip(unsigned zip) {
+	this->zip = zip;
+}
+
+void Customer::setEmail(string email) {
+	this->email = email;
+}
+
+void Customer::getOrderList(ostream &out) const {
+		orders.displayList(out);
+}
+
+void Customer::insertOrder(Order order) {
+	orders.insertStop(order);
+}
+
+void Customer::removeOrder(Order order) {	// loop through the orders List to find order then remove it.
+	orders.startIterator();
+	while(orders.getIterator().operator <=(order)){
+		orders.moveIterNext();
+	}
+	orders.removeIterator();
+}
+
+bool Customer::operator==(const Customer& customer) {
+	return (firstname == customer.firstname && lastname == customer.lastname && username == customer.username && password == customer.password);
+}
+
+bool Customer::operator<(const Customer& customer) {
+	if (firstname < customer.firstname)
+		return true;
+	else if (firstname == customer.firstname) {
+		if (lastname < customer.lastname)
 			return true;
-		else if (first_name == customer.first_name) {
-			if (last_name < customer.last_name)
+		else if (lastname == customer.lastname) {
+			if (username < customer.username)
 				return true;
-			else
-				return false;
-		}
-		else
-			return false;
-	}
-
-	bool operator>(const Customer& customer) {
-			if (first_name > customer.first_name)
-				return true;
-			else if (first_name == customer.first_name) {
-				if (last_name > customer.last_name)
+			else if (username == customer.username) {
+				if (password < customer.password)
 					return true;
 				else
 					return false;
@@ -115,29 +107,87 @@ public:
 			else
 				return false;
 		}
-
-	void print(ostream& out) const {
-		out << first_name << '\n'
-			<< last_name << '\n'
-			<< address << '\n'
-			<< city << '\n'
-			<< state << '\n'
-			<< zip << '\n';
+		else
+			return false;
 	}
+	else
+		return false;
+}
 
-ostream& operator<<(ostream& out, const Order& order){
+bool Customer::operator>(const Customer& customer) {
+	if (firstname > customer.firstname)
+		return true;
+	else if (firstname == customer.firstname) {
+		if (lastname > customer.lastname)
+			return true;
+		else if (lastname == customer.lastname) {
+			if (username > customer.username)
+				return true;
+			else if (username == customer.username) {
+				if (password > customer.password)
+					return true;
+				else
+					return false;
+			}
+			else
+				return false;
+		}
+		else
+			return false;
+	}
+	else
+		return false;
+}
 
+void Customer::read(ifstream& in) {
+	string temp;
+	bool temp1;
+	unsigned temp2;
+
+	in >> temp;
+	username = temp;
+	in >> temp;
+	password = temp;
+	in >> temp;
+	firstname = temp;
+	in >> temp;
+	lastname = temp;
+	in >> temp1;
+	isEmployee = temp1;
+	getline(in, temp);
+	address = temp;
+	in >> temp;
+	city = temp;
+	in >> temp2;
+	zip = temp2;
+	in >> temp;
+	email = temp;
+
+	while (in.peek() == '\n')
+		in.get();
+}
+
+void Customer::write(ostream& out) {
+	out << username << '\n';
+	out << password << '\n';
+	out << firstname << '\n';
+	out << lastname << '\n';
+	out << isEmployee << '\n';
+	out << address << '\n';
+	out << city << '\n';
+	out << zip << '\n';
+	out << email << '\n' << '\n';
+}
+
+
+
+
+
+std::ostream& operator<<(ostream& out, const Customer customer) {
+	out << left << setw(15) << customer.firstname << setw(15) << customer.lastname << setw(15) << customer.address << setw(15) << customer.city << setw(15) << customer.zip << customer.email << '\n';
+	customer.getOrderList(out);
 	return out;
 }
 
-void add_Order(Order 0) {
-	//insert
-}
 
-void remove_Order(Order o){
-	//traverse n remove
-}
 
-};
-
-#endif /* CUSTOMER_H_ */
