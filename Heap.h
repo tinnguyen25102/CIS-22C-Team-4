@@ -81,10 +81,12 @@ public:
     /**Additional Operations*/
 
     void displayHeap(ostream& out) const;
-    //prints the heap in level order
+    //prints the heap in level order. USED FOR DEBUGGING ONLY.
 
     void printSorted(ostream& out);
-    //prints each element in the array (heap) separated by a comma
+    //prints the heap as a list of orders, highest priority first.
+
+    void print(ostream & out, int index);
 
 };
 

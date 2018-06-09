@@ -33,6 +33,9 @@ struct subOrder {
 		out << " " << SO.laptop -> getMake() << SO.laptop -> getModel() << endl << "Quantity: " << SO.quantity;
 		return out;
 	}
+	bool operator==(const subOrder &rhs) {
+		return (*laptop == *rhs.laptop and quantity == rhs.quantity);
+	}
 };
 
 #endif /* SRC_SUBORDER_H_ */

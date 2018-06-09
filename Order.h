@@ -11,17 +11,21 @@
 #include "List.h"
 #include "SubOrder.h"
 #include "BST.h"
+#include "Customer.h"
 #include <ctime>
 using namespace std;
+
+class Customer;
 
 class Order {
 	
 private:
+	Customer * customer;
 	List<subOrder> laptops;
 	int shippingSpeed;
 	time_t timePlaced, arriveBy;
 	bool placed, shipped;
-	float price;	//TODO: Figure out how to handle shipping/delivery. E.g. have an employee enter when it's delivered, or have it record a ship time and chnage it to delivered after the shipping time has elapsed?
+	float price;
 	
 public:
 	
@@ -29,7 +33,9 @@ public:
 
 	Order();
 
-	Order(istream &in, BST <Product> &products);
+	Order(Customer * customer);
+
+	Order(istream &in, BST <Product> &products, Customer * customer);
 
 	/** management functions - getters and setters*/
 
@@ -52,6 +58,7 @@ public:
 
 	bool isShipped() const;
 	//returns whether the order has been shipped. If the order has been shipped, no further modification is allowed.
+	bool isDelivered() const;
 
 	void ship();
 	//sets the order to shipped.
@@ -67,7 +74,7 @@ public:
 	//(check for these before calling the function, so that you can display a user-friendly error message)
 
 	void setQuantity(int index, int quant);
-	//changes the quantity variable for laptop at index
+	//changes the quantity variable for laptop at index. If quantity is 0, removes laptop.
 
 	void placeOrder(int daysToShip);
 	//places the order; sets it as ready to ship

@@ -44,7 +44,7 @@ bool DEBUG = false;
     		heap_increase_key(floor(i/2), key);
     	}
     }
-    //helper funciton to insert
+    //helper function to insert
     //bubbles an element up to its proper location
 
     /**Constructors*/
@@ -55,8 +55,7 @@ bool DEBUG = false;
     	Order placeHolder;
     	heap -> push_back(&placeHolder);
     }
-    //assigns heap to point to v, an unordered array
-    //calls build_heap to convert the unordered array into a valid max heap
+    //Constructor for a new heap
 
     /**Manipulation Procedures*/
 
@@ -65,7 +64,7 @@ bool DEBUG = false;
             heapify(i);
         }
     }
-    //Takes an unordered vector and builds it into a heap
+    //Builds the heap
     //Called as a helper function of the constructor
     //Calls heapify as a helper function
 
@@ -79,9 +78,7 @@ bool DEBUG = false;
     	heap_size++;
     	heap_increase_key(heap_size, o);
     }
-    //Inserts a new value onto the end of the heap and
-    //Bubbles it up to the correct location in the heap
-    //Calls heap_increase_key as a helper function
+    //Places an order while simultaneously putting it on the heap
 
     void Heap::ship(int index) {
     	assert(1 <= index);
@@ -92,6 +89,7 @@ bool DEBUG = false;
     	heap_size--;
     	heapify(index);
     }
+    //Ships an order and removes it from the heap.
 
     void Heap::ship(Order * o) {
     	for (unsigned i = 0; i < heap -> size(); i++) {
@@ -100,8 +98,7 @@ bool DEBUG = false;
     		}
     	}
     }
-    //removes the node at the provided index of the heap
-    //pre: 1 <= i <= get_size()
+    //Calls previous ship function. Just allows you to ship by passing an order to the heap rather than an index.
 
     /**Access Functions*/
 
@@ -162,17 +159,9 @@ bool DEBUG = false;
         }
     }
 
-    /*void Heap::displayHeap(ostream& out) const {
-        for (int i = 1; i <= heap_size; i++) {
-            (*heap)[i] -> print(out);
-        }
+    void Heap::print(ostream & out, int index) {
+    	heap -> at(index) -> printDetailed(out);
     }
-
-    /*void Heap::displayHeap(ostream& out) const {
-    	for (vector<Order *>::iterator it = heap -> begin() + 1; it != heap -> end(); it++) {
-    		(*it) -> print(out);
-    	}
-    }*/
 
     void Heap::printSorted(ostream& out) {
     	int realLength = heap_size;

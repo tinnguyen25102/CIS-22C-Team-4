@@ -18,10 +18,19 @@ using namespace std;
 		shippingSpeed = price = 0;
 		placed = shipped = false;
 		timePlaced = arriveBy = 0;
+		customer = NULL;
 	}
 
-	Order::Order(istream &in, BST<Product> &products) {
+	Order::Order(Customer * owner) {
+		shippingSpeed = price = 0;
+		placed = shipped = false;
+		timePlaced = arriveBy = 0;
+		customer = owner;
+	}
+
+	Order::Order(istream &in, BST<Product> &products, Customer * owner) {
 		load(in, products);
+		customer = owner;
 	}
 
 	/** management functions - getters and setters*/
@@ -32,7 +41,7 @@ using namespace std;
 		strftime(timeString, 25, "%A %B %d", arriveByTm);
 		return timeString;
 	}
-	//returns the date that the order should arrive, determined based on day order is placed and shipping speed
+	//returns the date that the order should arrive, determined based on day order is placed and shipping speed, as a string
 
 	string Order::getDayPlaced() const {
 		tm * timePlacedtm = localtime(&timePlaced);
@@ -52,14 +61,19 @@ using namespace std;
 	}
 	//returns whether the order has been placed or not
 
-	void Order::setIsPlaced(bool isPlaced) {
+	/*void Order::setIsPlaced(bool isPlaced) {
 		placed = isPlaced;
-	}
+	}*/
+	//I don't anticipate this actually being used for anything. Use placeOrder() instead.
 
 	bool Order::isShipped() const {
 		return shipped;
 	}
 	//returns whether the order has been shipped. If the order has been shipped, no further modification is allowed.
+
+	bool Order::isDelivered() const {
+		return (time(NULL) > arriveBy);
+	}
 
 	void Order::ship() {
 		shipped = true;
@@ -69,8 +83,14 @@ using namespace std;
 	void Order::addLaptop(Product * newLaptop) {
 		assert(!placed);
 		subOrder newLT(newLaptop);
-		laptops.insertStop(newLT);
-		price += newLT.price;
+		int index = laptops.linearSearch(newLT);
+		if (index > -1) {
+			laptops.moveToIndex(index);
+			setQuantity(index, laptops.getIterator().getQuantity() + 1);
+		} else {
+			laptops.insertStop(newLT);
+			price += newLT.price;
+		}
 	}
 	//Adds a new laptop. If laptop matches existing laptop, increment by 1.
 	//Pre: !placed
@@ -85,7 +105,7 @@ using namespace std;
 	//removes a laptop from the list, by index
 	//Pre: !Placed
 	//Pre: Index < length of list
-	//(check for these before calling the function, so that you can display a user-friendly error message)
+	//(check for these before calling the function, so that you can display a user-friendly error message without crashing the program)
 
 	void Order::setQuantity(int index, int quant) {
 		assert(!placed);
@@ -104,7 +124,7 @@ using namespace std;
 	//Pre: !Placed
 	//Pre: Index < length of list
 	//Pre: Quantity is positive or 0
-	//changes the quantity variable for laptop at index + updates teh price
+	//changes the quantity variable for laptop at index + updates the price
 
 	void Order::placeOrder(int daysToShip) {
 		timePlaced = time(NULL);
@@ -112,7 +132,7 @@ using namespace std;
 		arriveBy += 86400 * daysToShip;
 		shippingSpeed = daysToShip;
 		placed = true;
-	}	//TODO: Handle when the order has been delivered?
+	}
 	//places the order; sets it as ready to ship; sets value of timePlaced and arriveBy.
 
 	bool Order::operator>(const Order& order) {
@@ -149,26 +169,36 @@ using namespace std;
 		}
 	}
 
-	void Order::print(ostream & out) {
+	void Order::print(ostream & out) {	//Prints basic information about the order, including where to ship, etc.
 		out << fixed << setprecision(2) << endl << "Total value: $" << price;
 		if (placed) {
 			out <<" Arrive by: " << getArriveBy() << " Status: ";
 			if (shipped) {
-				out << "Shipped";
+				if (isDelivered()) {
+					out << "Delivered";
+				} else {
+					out << "En route";
+				}
 			} else {
 				out << "Waiting to be shipped";
 			}
 		}
 	}
 
-	void Order::printDetailed(ostream & out) {
+	void Order::printDetailed(ostream & out) {	//Prints above information + also the list of all laptops.
 		print(out);
-		out << endl << "Laptops:" << endl;
-		laptops.displayNumberedList(out);
+		customer -> print(out);
+		if (laptops.getLength() > 0) {
+			out << endl << "Laptops:" << endl;
+			laptops.displayNumberedList(out);
+		}
+		else {
+			out << "Your cart is empty!";
+		}
 		out << endl << endl;
 	}
 
-	void Order::save(ostream & out) {
+	void Order::save(ostream & out) {	//Prints out all information in format for load() to read
 		out << shippingSpeed << "\t";
 		out << price << "\t";
 		out << placed << "\t";
@@ -185,7 +215,7 @@ using namespace std;
 		out << "end" << endl;
 	}
 
-	Order * Order::load(istream & in, BST<Product> & products) {
+	Order * Order::load(istream & in, BST<Product> & products) {	//reads in information from an input.
 		int quantity = 0;
 		string make = "", model, input;
 		getline(in, input);
