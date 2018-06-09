@@ -29,6 +29,8 @@ public:
 
 	Order();
 
+	Order(istream &in, BST <Product> &products);
+
 	/** management functions - getters and setters*/
 
 	string getArriveBy() const;

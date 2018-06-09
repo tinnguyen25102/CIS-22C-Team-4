@@ -13,26 +13,24 @@
 
 using namespace std;
 
-bool DEBUG = false;
-
     /**Helper Functions*/
 
     void Heap::heapify(int i) {
-        int l = i * 2;
-        int r = i * 2 + 1;
-        int greatest = i;
-    	if (l <= heap_size and *(heap -> at(l)) > *(heap -> at(greatest))) {
+    	int l = i * 2;
+    	int r = i * 2 + 1;
+    	int greatest = i;
+    	if (l < heap_size and *(heap -> at(l)) > *(heap -> at(greatest))) {
     		greatest = l;
     	}
-    	if (r <= heap_size and *(heap -> at(r)) > *(heap -> at(greatest))) {
+    	if (r < heap_size and *(heap -> at(r)) > *(heap -> at(greatest))) {
     		greatest = r;
     	}
-        if (greatest != i) {
-        	Order * swap = heap -> at(greatest);
-        	heap -> at(greatest) = heap -> at(i);
-        	heap -> at(i) = swap;
-        	heapify(greatest);
-        }
+    	if (greatest != i) {
+    		Order * swap = heap -> at(greatest);
+    		heap -> at(greatest) = heap -> at(i);
+    		heap -> at(i) = swap;
+    		heapify(greatest);
+    	}
     }
     //helper function to build_heap, remove, and sort
     //bubbles an element down to its proper location within the heap
@@ -162,38 +160,14 @@ bool DEBUG = false;
         }
     }
 
-    /*void Heap::displayHeap(ostream& out) const {
-        for (int i = 1; i <= heap_size; i++) {
-            (*heap)[i] -> print(out);
-        }
-    }
-
-    /*void Heap::displayHeap(ostream& out) const {
-    	for (vector<Order *>::iterator it = heap -> begin() + 1; it != heap -> end(); it++) {
-    		(*it) -> print(out);
-    	}
-    }*/
-
     void Heap::printSorted(ostream& out) {
     	int realLength = heap_size;
-    	while (heap_size > 1) {
-    		if (DEBUG) {
-    			out << "\ninitially\n";
-    			displayHeap(out);
-    		}
+    	while (heap_size >= 1) {
     		Order * swap = heap -> at(1);
     		heap -> at(1) = heap -> at(heap_size);
     		heap -> at(heap_size) = swap;
-    		if (DEBUG) {
-        		out << "\nafter swapping\n";
-        		displayHeap(out);
-    		}
     		heap_size--;
     		heapify(1);
-    		if (DEBUG) {
-    			out << "\nafter decreasing length and heapify\n";
-    			displayHeap(out);
-    		}
     	}
     	heap_size = realLength;
         for (int i = heap_size; i >= 1; i--) {

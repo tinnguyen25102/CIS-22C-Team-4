@@ -20,6 +20,10 @@ using namespace std;
 		timePlaced = arriveBy = 0;
 	}
 
+	Order::Order(istream &in, BST<Product> &products) {
+		load(in, products);
+	}
+
 	/** management functions - getters and setters*/
 
 	string Order::getArriveBy() const {
@@ -165,44 +169,44 @@ using namespace std;
 	}
 
 	void Order::save(ostream & out) {
-		out << 	shippingSpeed;
-		out << price;
-		out << placed;
-		out << shipped;
-		out << timePlaced;
-		out << arriveBy;
+		out << shippingSpeed << "\t";
+		out << price << "\t";
+		out << placed << "\t";
+		out << shipped << "\t";
+		out << timePlaced << "\t";
+		out << arriveBy << endl;
 		laptops.startIterator();
 		while (!laptops.offEnd()) {
-			out << laptops.getIterator().laptop -> getMake();
-			out << laptops.getIterator().laptop -> getModel();
+			out << laptops.getIterator().laptop -> getMake() << endl;
+			out << laptops.getIterator().laptop -> getModel() << endl;
 			out << laptops.getIterator().quantity << endl;
+			laptops.moveIterNext();
 		}
-		out << endl << endl;
+		out << "end" << endl;
 	}
 
 	Order * Order::load(istream & in, BST<Product> & products) {
 		int quantity = 0;
-		string make, model, input;
-		in >> shippingSpeed;
-		in >> price;
-		in >> placed;
-		in >> shipped;
-		in >> timePlaced;
-		in >> arriveBy;
-		while (getline(cin, make)) {
-			if (make == "") {
-				break;
-			}
-			else {
-				getline(cin, model);
-				Product dummyProduct(make, model, 0, 0, 0, 0);
-				subOrder newSO (products.find(dummyProduct));
-				getline(cin, input);
-				stringstream getInt(input);
-				getInt >> quantity;
-				newSO.setQuantity(quantity);
-				laptops.insertStop(newSO);
-			}
+		string make = "", model, input;
+		getline(in, input);
+		stringstream getValue(input);
+		getValue >> shippingSpeed;
+		getValue >> price;
+		getValue >> placed;
+		getValue >> shipped;
+		getValue >> timePlaced;
+		getValue >> arriveBy;
+		getline(in, make);
+		while (make != "end") {
+			getline(in, model);
+			Product dummyProduct(make, model, 0, 0, 0, 0);
+			subOrder newSO (products.find(dummyProduct));
+			getline(in, input);
+			stringstream getInt(input);
+			getInt >> quantity;
+			newSO.setQuantity(quantity);
+			laptops.insertStop(newSO);
+			getline(in, make);
 		}
 		if (placed and !shipped) {
 			return this;
