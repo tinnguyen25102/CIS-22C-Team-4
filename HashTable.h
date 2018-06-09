@@ -11,10 +11,13 @@
 
 #include <string>
 #include "Customer.h"
+#include "Employee.h"
 #include "List.h"
-#include "Order.h"
+#include <iostream>
+
 using namespace std;
 
+template <class htdata>
 class HashTable {
 public:
     /**Constructors*/
@@ -29,45 +32,26 @@ public:
     /**Access Functions*/
 
     int hash(string key) const;
-    //returns the hash value for the given key
-    //the hash value is the sum of
-    //of the ASCII values of each char in the key
-    //% the size the of the table
-    //Key for this table: title + author
 
-    int countBucket(int index) const;
-    //counts the number of Books at this index
-    //returns the count
-    //pre: 0<= index < SIZE
-
-    int search(Customer c) const;
-    //Searches for b in the table
-    //returns the index at which b is located
-    //returns -1 if b is not in the table
-
-    /**Manipulation Procedures*/
-
-    void insert(Customer c);
-    //inserts a new book into the table
-    //calls the hash function on the key to determine
-    //the correct bucket
 
     void remove(Customer c);
-    //removes b from the table
-    //calls the hash function on the key to determine
-    //the correct bucket
-    //pre: b is in the table
 
-    /**Additional Functions*/
+    int search(htdata f) const;
 
-    void DisplayCustomer(ostream& out) const;
+
+    void insert(htdata c);
+
+
+    void Display(htdata c,ostream& out) ;
 
 private:
     static const int SIZE = 100;
-    List<Customer> Table[SIZE];
+    List<htdata> Table[SIZE];
 };
 
-int HashTable:: hash(string key) const {
+template<class htdata>
+int HashTable<htdata>:: hash(string key) const {
+	string temp;
 		int index, sum = 0;
 		for (int i = 0; i < key.length(); i++){
 			sum += (int) key[i]; //summing the ASCII values for each character in the stringindex = sum % SIZE; //dividing the summed ASCII values by TABLE_SIZE//and storing remainder as my indexreturn index;}
@@ -76,32 +60,31 @@ int HashTable:: hash(string key) const {
 	return index;
 }
 
-void HashTable::insert(Customer c) {
-	int index = hash(c.get_First_Name() + c.get_Last_Name());
+template<class htdata>
+void HashTable<htdata>::insert(htdata c) {
+	int index = hash (c.getFirstname()+ c.getLastname());
 	Table[index].insertStop(c);
 }
 
-int HashTable::search(Customer c) const {
-	int index = hash(c.get_First_Name() + c.get_Last_Name());
-	if (Table[index].linearSearch(c) != -1) { // if the book is in the table.
-		return index;
-	} else{
-		return -1; //if book is not in the table}
-	}
+
+template<class htdata>
+void HashTable<htdata>::Display(htdata c, ostream& out) {
+	int index = hash ( c.getFirstname()+ c.getLastname());
+	//Table[index].displayNumberedList(out);
+	Table[index].displayNumberedList(cout);
 }
 
-void HashTable::remove(Customer c){
-	int index=hash(c.get_First_Name() + c.get_Last_Name());
-	Table[index].startIterator();
-	while(Table[index].getIterator().get_First_Name() != c.get_First_Name() && Table[index].getIterator().get_Last_Name() != c.get_Last_Name()){
-		Table[index].moveIterNext();
+template<class htdata>
+int HashTable<htdata>::search (htdata f) const{
+	int index = hash (f.getFirstname()+ f.getLastname());
+		return Table[index].linearSearch(f);
+	/*
+	if(Table[index].linearSearch(f) != -1){
+		return index;			//return index of customer, working on return multiple customer
 	}
-	Table[index].removeIterator();
+	else return -1; */
 }
 
-int HashTable::countBucket(int index) const {
-	assert(index>=0 && index <SIZE);
-	return Table[index].getLength();
-}
+
 
 #endif /* HASHTABLE_H_ */
