@@ -1,51 +1,3 @@
-
-#ifndef CUSTOMER_H_
-#define CUSTOMER_H_
-
-#include "User.h"
-#include "List.h"
-#include "Order.h"
-#include <iostream>
-#include <string>
-using namespace std;
-
-class Customer : public User {
-private:
-	string address;
-	string city;
-	unsigned zip;
-	string email;
-	List<Order> orders;
-
-public:
-	Customer();
-	Customer(string username, string password, string firstName, string lastName, bool isEmployee, string address, string city, unsigned zip, string email);
-	//No orders in constructor
-
-	string getAddress() const;
-	string getCity() const;
-	unsigned getZip() const;
-	string getEmail() const;
-
-	void setAddress(string address);
-	void setCity(string city);
-	void setZip(unsigned zip);
-	void setEmail(string email);
-
-	void getOrderList(ostream &out) const;		//print list of orders
-	void insertOrder(Order order);				//insert new order to list
-	void removeOrder(Order order);				//remove an order from list
-
-	bool operator==(const Customer& customer);
-	bool operator<(const Customer& customer);
-	bool operator>(const Customer& customer);
-
-	void read(ifstream& in);	//read data from file
-	void write(ostream& out);	//write data to file
-
-	friend ostream& operator<<(ostream& out, const Customer& customer);		//display in console
-};
-
 /*
  * Customer.cpp
  *
@@ -55,8 +7,6 @@ public:
 
 #include "Customer.h"
 #include <iostream>
-#include "List.h"
-#include "Order.h"
 #include <iomanip>
 #include <fstream>
 using namespace std;
@@ -76,8 +26,8 @@ Customer::Customer() {
 Customer::Customer(string username, string password, string firstName, string lastName, bool isEmployee, string address, string city, unsigned zip, string email) {
 	this->username = username;
 	this->password = password;
-	this->firstname = firstName;
-	this->lastname = lastName;
+	this->firstname = firstname;
+	this->lastname = lastname;
 	this->isEmployee = isEmployee;
 	this->address = address;
 	this->city = city;
@@ -118,19 +68,15 @@ void Customer::setEmail(string email) {
 }
 
 void Customer::getOrderList(ostream &out) const {
-		orders.displayList(out);
+	orders.displayNumberedList(out);
 }
 
 void Customer::insertOrder(Order order) {
 	orders.insertStop(order);
 }
 
-void Customer::removeOrder(Order order) {	// loop through the orders List to find order then remove it.
-	orders.startIterator();
-	while(orders.getIterator().operator <=(order)){
-		orders.moveIterNext();
-	}
-	orders.removeIterator();
+void Customer::removeOrder(Order order) {
+	orders.remove(order);
 }
 
 bool Customer::operator==(const Customer& customer) {
@@ -221,22 +167,15 @@ void Customer::write(ostream& out) {
 	out << firstname << '\n';
 	out << lastname << '\n';
 	out << isEmployee << '\n';
-	out << address << '\n';
+	out << adress << '\n';
 	out << city << '\n';
 	out << zip << '\n';
 	out << email << '\n' << '\n';
 }
 
-
-
-
-
-std::ostream& operator<<(ostream& out, const Customer customer) {
+friend ostream& operator<<(ostream& out, const Customer& customer) {
 	out << left << setw(15) << customer.firstname << setw(15) << customer.lastname << setw(15) << customer.address << setw(15) << customer.city << setw(15) << customer.zip << customer.email << '\n';
-	customer.getOrderList(out);
 	return out;
 }
-
-
 
 
