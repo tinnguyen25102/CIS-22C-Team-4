@@ -1,0 +1,46 @@
+Here's how I thought things would work. If you have a better idea, feel free to change things/ask me to modify the code accordingly.
+
+Create an order: Pass a pointer to the containing customer to the order so that the print functions can print address, etc. for the employee (in constructor)
+I was thinking customers would have one active order (the cart) at any time plus however many orders they'd already placed.
+To create a new order: 	Order::Order(Customer * owner) {
+To read in order from file: 	Order::Order(istream &in, BST<Product> &products, Customer * owner) { (More info on this below)
+
+To Edit order (Customer):
+addLaptop(Product *)
+removeLaptop(int index)
+setQuantity(int index, int quant)
+Make sure to check that the order is not placed before attempting to edit it. I've (mostly) handled this using assertions, but the Customer class should also perform these checks so it can catch them before the assertions stop the program.
+
+To Place order (Customer):
+Call heap.place(Order * o, int days) where o is the pointer to the order and days is the shipping speed.
+don't call order.placeOrder(); this should only be called by the heap.
+
+To view orders (employees):
+heap.printSorted(ostream& out); will display orders in order of priority.
+heap.print(int index, ostream& out); will print detailed information on one order
+do not use displayheap, it's for testing only
+
+To ship order (employees):
+ship(Order * o) or ship(int index);
+don't call order.ship(); this will be called by the heap.
+
+There is no load function for the heap. The heap must be rebuilt from orders as they're loaded in:
+The Load function also returns a pointer to itself if the order should go into the heap (that is, it's placed but not shipped. Otherwise, it returns NULL, which the heap is programmed to reject.) So, something like this should work to read in orders from a file to a customer object:
+
+List<Order> orders;	//The List of customer's orders
+Heap newHeap;		//The priority queue for all orders which are placed but not shipped
+BST products;		//The product BST
+
+while ([is reading in from fileInput]) {
+	Order o;
+	newHeap.place(o.load(fileInput, BST));
+	Order.insertStop(o);
+}
+(Not sure that this is actually the best way to do it. You could also just do it manually by loading in orders, then 
+if (o.isPlaced() and !o.isShipped()) {
+	newHeap.place(&o);
+}
+
+
+
+

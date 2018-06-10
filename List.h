@@ -1,499 +1,593 @@
-/**
- * Vu Pham
- * Tin Nguyen
- * CIS 22C, Lab 4
+/*
+ * List.h
+ *
+ *  Created on: Apr 11, 2018
  */
 
 #ifndef LIST_H_
 #define LIST_H_
-
 #include <iostream>
 #include <cstddef> //for NULL
-#include <assert.h> //for assert function
-#include <iomanip> //for setw
-#include <fstream> //for fileIO
+#include <assert.h>
 using namespace std;
 
-template<class listdata> //list stores generic listdata, not any specific C++ type
+template <class listdata> //list stores generic listdata
+
 class List {
 
 private:
-	struct Node {
-		listdata data;
-		Node* next;
-		Node* previous;
+    struct Node {
+        listdata data;
+        Node* next;
+        Node* previous;
 
-		Node(listdata newData) {
-			data = newData;
-			next = NULL;
-			previous = NULL;
-		}
-	};
+        Node(listdata newData){
+            data = newData;
+            next = NULL;
+            previous = NULL;
+        }
+    };
 
-	Node* start;
-	Node* stop;
-	Node* iterator;
-	int length;
-
-	bool isSorted(Node* node) const;
-	//Helper function for the isSorted() public function.
-	//Recursively determines whether a list is sorted in ascending order.
-
-	void displayReverse(Node* node, ostream &out) const;
-	//Helper function for the public displayReverse wrapper function
-	//Recursively prints the data in a list in reverse order
-
-	int binarySearch(int low, int high, listdata data) const;
-	//Recursively search the list by dividing the search space in half
-	//Returns the index of the element, if it is found in the list
-	//Returns -1 if the element is not in the list
-	//Post: iterator location is not changed
+    Node* start;
+    Node* stop;
+    Node* iterator;
+    int length;
 
 public:
 
-	/**Constructors and Destructors*/
+    /**Constructors and Destructors*/
 
-	List();
-	//Default constructor; initializes and empty list
-	//Postcondition: start and stop nodes are set to NULL, length set to 0
+    List();
+    //Default constructor; initializes an empty list
+    //Postcondition: start and stop initialized to null.
+    //Length initialized to 0.
 
-	List(const List &list);
-	//Copy constructor (deep copy); allocates new memory and copy contents to new list
-	//Postcondition: New list will contain a copy of the data in the original list
+    List(const List<listdata> &oldList);
+    //Copy constructor; creates a duplicate list
+    //Postcondition: New list has same data as old list, stored
+    //in different memory.
 
-	~List();
-	//Destructor. Frees memory allocated to the list
-	//Postcondition: all nodes are deleted, resources are freed
+    ~List();
+    //Destructor. Frees memory allocated to the list
+    //Postcondition: Deletes every node in the list
+    //before the list object is destroyed.
 
-	/**Accessors*/
+    /**Accessors*/
 
-	listdata getStart() const;
-	//Returns the data at the start of the list
-	//Precondition: length != 0
+    listdata getStart() const;
+    //Returns the data at the start of the list
+    //Precondition: Length of list >= 1.
 
-	listdata getStop() const;
-	//Returns the data at the end of the list
-	//Precondition: length != 0
+    listdata getStop() const;
+    //Returns the data at the end of the list
+    //Precondition: Length of list >= 1.
 
-	bool isEmpty() const;
-	//Determines whether a list is empty.
-	//Postcondition: returns true if length==0 and false if otherwise
+    bool isEmpty() const;
+    //Determines whether a list is empty.
 
-	int getLength() const;
-	//Returns the size of the list
+    int getLength() const;
+    //Returns the size of the list
 
-	listdata getIterator() const;
-	//Returns the data of the node the iterator pointing at
-	//Precondition: iterator != NULL
+    listdata getIterator() const;
+    //returns the data stored in the element pointed at by the iterator
+    //Precondition: Iterator must be pointing at a list element
 
-	bool offEnd() const;
-	//Returns whether the iterator is off the list
+    bool offEnd() const;
+    //Is false if iterator is pointing at a valid list element
 
-	bool operator==(const List &list) const;
-	//Compares two lists to see if they contain the same data in the same order
-	//Postcondition: returns true if equal and false if otherwise
+    bool operator==(const List &rhs) const;
+    //Compares two lists.
 
-	bool isSorted() const;
-	//Wrapper function that calls the isSorted helper function to determine whether a list is sorted in ascending order.
-	//We will assume that a list is trivially sorted if it is empty.
-	//Therefore, no precondition is needed.
+    bool isSorted() const;
 
-	int getIndex() const;
-	//Indicates the index of the Node where the iterator is currently pointing at.
-	//Nodes are numbered starting at 1 through "length".
-	//Pre: iterator != NULL
+    //Wrapper function that calls the isSorted helper function to determine whether
+    //a list is sorted in ascending order.
+    //We will consider that a list is trivially sorted if it is empty.
+    //Therefore, no precondition is needed for this function
 
-	int linearSearch(listdata data) const;
-	//Iteratively searches the list, element by element, from the start of the list to the end.
-	//Returns the index of the element, if it is found in the list.
-	//Does not call the indexing functions in the implementation
-	//Returns -1 if the element if not in the List
-	//Pre: length != 0
-	//Post: iterator location does not change
+private:
 
-	int binarySearch(listdata data) const;
-	//Returns the index where data is located in the list.
-	//Calls the private helper function binarySearch to perform the search
-	//Pre: length != 0 && isSorted()
-	//Post: iterator location is not changed
+    bool isSorted(Node* node) const;
+    //Helper function for the public isSorted() function.
+    //Recursively determines whether a list is sorted in ascending order.
 
-	/**Manipulation Procedures*/
+public:
 
-	void removeStart();
-	//Removes the value stored in first node in the list
-	//Precondition: getLength() > 0
-	//Postcondition: if length = 1 --> length = 0 and start and stop = NULL
-	//               if length > 1 --> second node becomes start node, length--
+    int getIndex() const;
+    //Indicates the index of the Node where the iterator is currently pointing
+    //Nodes are numbered starting at 1 through the size of the list
+    //Pre: !offEnd()
 
-	void removeStop();
-	//Removes the value stored in the last node in the list
-	//Precondition: getLength() > 0
-	//Postcondition: if length = 1 --> length = 0 and start and stop = NULL
-	//               if length > 1 --> second to last node becomes stop node, length--
+    int linearSearch(listdata data) const;
+    //Iteratively searchs the list, element by element, from the start of the List to the end of the List
+    //Returns the index of the element, if it is found in the List
+    //Does not call the indexing functions in the implementation
+    //Returns -1 if the element is not in the List
+    //Pre: length != 0
+    //Post: The iterator location has not been changed
 
-	void insertStart(listdata data);
-	//Inserts a new data at the beginning of the list
-	//If the list is empty, the new data becomes both start and stop
-	//Postcondition: if length = 0 --> start and stop = newNode, length++
-	//               if length > 0 --> start node becomes second node, newNode becomes start node, length++
+    int binarySearch(listdata data) const;
+    //Returns the index where data is located in the List
+    //Calls the private helper function binarySearch to perform the search
+    //Pre: length != 0
+    //Pre: List is sorted (must test on a sorted list)
+    //Post: The iterator location has not been changed
 
-	void insertStop(listdata data);
-	//Inserts a new data at the end of the list
-	//If the list is empty, the new data becomes both start and stop
-	//Postcondition: if length = 0 --> start and stop = newNode, length++
-	//               if length > 0 --> stop node becomes second to last, newNode becomes stop node, length++
+private:
 
-	void startIterator();
-	//Moves iterator to start of the list
-	//Postcondition: iterator will point at start
+    int binarySearch(int low, int high, listdata data) const;
+    //Recursively search the list by dividing the search space in half
+    //Returns the index of the element, if it is found in the List
+    //Returns -1 if the element is not in the List
+    //Post: The iterator location has not been changed
 
-	void removeIterator();
-	//Removes the node currently pointed to by the iterator
-	//Precondition: iterator != NULL
-	//Postcondition: current node is removed, iterator->previous and iterator->next are now connected, length--
+public:
 
-	void insertIterator(listdata data);
-	//Inserts an element after the node currently pointed to by the iterator
-	//Precondition: iterator != NULL
-	//Postcondition: new node N is added after the iterator, iterator is connected with N, N is connected with iterator->next, length++
+    /**Manipulation Procedures*/
 
-	void moveIterNext();
-	//Moves the iterator up by one node towards stop
-	//Precondition: iterator != NULL
-	//Postcondition: iterator = iterator->next
+    void removeStart();
+    //Removes the value stored in first node in the list
+    //Precondition: Length of list >= 1.
+    //Postcondition: First node of list is deleted. Start pointer
+    //now points to second node in the list.
 
-	void moveIterPrevious();
-	//Moves the iterator back by one node towards start
-	//Precondition: iterator != NULL
-	//Postcondition: iterator = iterator->previous
+    void removeStop();
+    //Removes the value stored in the last node in the list
+    //Precondition: Length of list >= 1.
+    //Postcondition: Last node of list is deleted. Stop pointer now
+    //points to the new last node. Last node points to null.
 
-	void moveToIndex(int index);
-	//Moves the iterator to the node whose index number is specified in the parameter.
-	//Nodes are numbered starting at 1 to "length".
-	//Pre: length != 0 && index <= length
+    void insertStart (listdata data);
+    //Inserts a new data at the beginning of the list
+    //If the list is empty, the new data becomes both start and stop
+    //Postcondition: Node created at the beginning of the list,
+    //data stored in node.
 
-	/**Additional List Operations*/
+    void insertStop(listdata data);
+    //Inserts a new data at the end of the list
+    //If the list is empty, the new data becomes both start and stop
+    //Postcondition: Node created at end of list, data stored in node.
 
-	void displayList(ostream &out) const;
-	//Prints to the console or file the value of each data in the list sequentially and separated by a blank space
-	//Prints nothing if the list is empty
-	//Prints a empty newline character if it's empty..
+    void startIterator();
+    //Sets the iterator to the start pointer
 
-	void displayNumberedList(ostream &out) const;
-	//Prints the contents of the linked list to the console or file in the format: <element> followed by a newline
-	//Prints nothing if the list is empty
-	//Prints a empty newline character if it's empty..
+    void removeIterator();
+    //Deletes the node pointed at by the iterator.
+    //Precondition: Iterator must be pointing at a valid list node.
 
-	void displayReverse(ostream &out) const;
-	//Wrapper function that calls the private displayReverse helper function to print a list in reverse
-	//Prints nothing if the list is empty
+    void insertIterator(listdata data);
+    //Inserts a list node after the one pointed at by the iterator.
+    //Postcondition: New list node.
+    //Precondition: Iterator must point at a valid node.
 
+    void moveIterNext();
+    //move iterator up list one
+
+    void moveIterPrevious();
+    //move iterator down list one
+
+    void moveToIndex(int index);
+    //Moves the iterator to the node whose index number is specified in the parameter
+    //Nodes are numbered starting at 1 through the size of the List
+    //Pre: size != 0
+    //Pre: index <= size
+
+    /**Additional List Operations*/
+
+    void displayList(ostream &out) const;
+    //Prints to the console the value of each data in the list sequentially
+    //and separated by a blank space
+    //Prints a empty newline character if it's empty..
+
+    void displayNumberedList(ostream &out) const;
+    //Prints to the console the value of each data in the list, with a number.
+    //Prints an empty newline character if the list is empty.
+
+    void displayReverse(ostream& out) const;
+    //Wrapper function that calls the private displayReverse helper function to print a list in reverse
+    //prints nothing if the List is empty
+
+private:
+
+    void displayReverse(Node* node, ostream& out) const;
+    //Helper function for the public displayReverse wrapper function.
+    //Recursively prints the data in a List in reverse.
 };
 
-template<class listdata>
+#endif /* LIST_H_ */
+
+/**Function Declarations*/
+/**Constructors and Destructors*/
+
+template <class listdata>   //Default constructor
 List<listdata>::List() {
-	start = NULL;
-	stop = NULL;
-	iterator = NULL;
+    start = stop = iterator = NULL;
+    length = 0;
+}
+
+template <class listdata>
+List<listdata>::List(const List<listdata> &oldList) {   //Copy constructor
 	length = 0;
-}
-
-template<class listdata>
-List<listdata>::List(const List &list) {
-	if (list.start == NULL)
+	if (oldList.length == 0)
+	{
 		start = stop = iterator = NULL;
-	else {
-		start = new Node(list.start->data);
-		Node* temp = list.start;
-		iterator = start;
-		while (temp->next != NULL) {
-			temp = temp->next;
-			iterator->next = new Node(temp->data);
-			iterator->next->previous = iterator;
-			iterator = iterator->next;
+	}
+	else
+	{
+		Node * temp = oldList.start;
+		while (temp != NULL)
+		{
+			insertStop(temp -> data);
+			temp = temp -> next;
 		}
-		stop = iterator;
-		iterator = NULL;
 	}
-	length = list.length;
 }
 
-template<class listdata>
-List<listdata>::~List() {
-	Node* b = start;
-	Node* a = NULL;
-	while (b != NULL) {
-		a = b->next;
-		delete b;
-		b = a;
-	}
-	iterator = NULL;
+template <class listdata>   //Destructor
+List<listdata>::~List()
+{
+    Node* b = start;
+    Node* a = NULL; //a stands for "after" (i.e. after b)
+    while (b != NULL)
+    {
+        a = b -> next; //move a to node after b
+        delete b; //remove b (you know it is not NULL from if)
+        b = a; //b "catches up" with a (both point to same place in list)
+    }
 }
 
-template<class listdata>
-listdata List<listdata>::getStart() const {
-	assert(length != 0);
-	return start->data;
+/**Accessors*/
+
+template <class listdata>   //returns data in first element
+listdata List<listdata>::getStart() const
+{
+    assert(start);
+    return start -> data;
 }
 
-template<class listdata>
-listdata List<listdata>::getStop() const {
-	assert(length != 0);
-	return stop->data;
+template <class listdata>   //returns data in last element
+listdata List<listdata>::getStop() const
+{
+    assert(stop);
+	return stop -> data;
 }
 
-template<class listdata>
-bool List<listdata>::isEmpty() const {
-	return length == 0;
+template <class listdata>   //returns whether the list is empty
+bool List<listdata>::isEmpty() const
+{
+    return (length == 0);
 }
 
-template<class listdata>
-int List<listdata>::getLength() const {
+template <class listdata>   //returns number of elements
+int List<listdata>::getLength() const
+{
 	return length;
 }
 
-template<class listdata>
-listdata List<listdata>::getIterator() const {
-	assert(iterator != NULL);
-	return iterator->data;
+template <class listdata>   //returns data contained in element at iterator
+listdata List<listdata>::getIterator() const
+{
+    assert(iterator);
+    return iterator -> data;
 }
 
-template<class listdata>
-bool List<listdata>::offEnd() const {
-	return iterator == NULL;
+template <class listdata>   //Returns false if iterator points to an element.
+bool List<listdata>::offEnd() const
+{
+    return (iterator == NULL);
 }
 
-template<class listdata>
-bool List<listdata>::operator==(const List &list) const {
-	if (length != list.length)
-		return false;
-	Node* temp1 = start;
-	Node* temp2 = list.start;
-	while (temp1 != NULL) {
-		if (temp1->data != temp2->data)
-			return false;
-		temp1 = temp1->next;
-		temp2 = temp2->next;
-	}
-	return true;
+template <class listdata>   //== operator overload
+bool List<listdata>::operator==(const List &rhs) const
+{
+    Node * thisIterator = start;
+    Node * thatIterator = rhs.start;
+    bool same = true;
+    while (thisIterator and thatIterator)
+    {
+        if (thisIterator -> data != thatIterator -> data)
+        {
+            same = false;
+            break;
+        }
+        else
+        {
+            thisIterator = thisIterator -> next;
+            thatIterator = thatIterator -> next;
+        }
+    }
+    if (thisIterator != thatIterator)
+    {
+        same = false;
+    }
+    return same;
 }
 
-template<class listdata>
-void List<listdata>::removeStart() {
-	assert(length != 0);
-	if (length == 1) {
+template <class listdata>
+bool List<listdata>::isSorted() const
+{
+    if (length < 2) {
+        return true;
+    }
+    else {
+        return isSorted(start);
+    }
+}
+
+template <class listdata>
+bool List<listdata>::isSorted(Node* node) const
+{
+    bool inOrder = true;
+    if (node -> next != NULL) {
+        if (node -> next -> data > node -> data and isSorted(node -> next)) {
+            inOrder = true;
+        }
+        else {
+            inOrder = false;
+        }
+    }
+    return inOrder;
+}
+
+template <class listdata>
+int List<listdata>::getIndex() const {
+    assert(iterator != NULL);
+    Node * temp = start;
+    int count = 1;
+    while (temp != iterator) {
+        temp = temp -> next;
+        count++;
+    }
+    return count;
+}
+
+template <class listdata>
+int List<listdata>::linearSearch(listdata data) const {
+    Node * tempIter = start;
+    int index = 1;
+    bool found = false;
+    while (tempIter != NULL) {
+        if (data == tempIter -> data) {
+            found = true;
+            break;
+        }
+        else {
+            index++;
+            tempIter = tempIter -> next;
+        }
+    }
+    if(found) {
+        return index;
+    }
+    else {
+        return -1;
+    }
+}
+
+template <class listdata>
+int List<listdata>::binarySearch(listdata data) const {
+    assert(length > 0);
+    assert(isSorted());
+    return binarySearch(0, length, data) + 1;
+}
+
+template <class listdata>
+int List<listdata>::binarySearch(int low, int high, listdata data) const {
+    Node * tempIter = start;
+    for (int i = 0; i < (low + high) / 2; i++) {
+        tempIter = tempIter -> next;
+    }
+    if (tempIter -> data == data) {
+        return ((low + high) / 2);
+    }
+    else if (low + 1 == high) {
+        return -2;
+    }
+    else if (tempIter -> data < data) {
+        return binarySearch((low + high) / 2, high, data);
+    }
+    else {
+        return binarySearch(low, (low + high) / 2, data);
+    }
+}
+
+
+
+/**Manipulation Procedures*/
+
+template <class listdata>   //Removes first node in the list.
+void List<listdata>::removeStart()
+{
+    assert(start);
+    if (length == 1)
+	{
 		delete start;
 		start = stop = NULL;
-	} else {
-		Node* temp = start;
-		start = start->next;
-		delete temp;
-		start->previous = NULL;
-	}
-	length--;
-}
-
-template<class listdata>
-void List<listdata>::removeStop() {
-	assert(length != 0);
-	if (length == 1) {
-		delete stop;
-		start = stop = NULL;
-	} else {
-		Node* temp = stop->previous;
-		delete stop;
-		stop = temp;
-		stop->next = NULL;
-	}
-	length--;
-}
-
-template<class listdata>
-void List<listdata>::insertStart(listdata data) {
-	Node* N = new Node(data);
-	if (length == 0) {
-		start = N;
-		stop = N;
-	} else {
-		N->next = start;
-		start->previous = N;
-		start = N;
-	}
-	length++;
-}
-
-template<class listdata>
-void List<listdata>::insertStop(listdata data) {
-	Node* N = new Node(data);
-	if (length == 0) {
-		stop = start = N;
-	} else {
-		stop->next = N;
-		N->previous = stop;
-		stop = N;
-	}
-	length++;
-}
-
-template<class listdata>
-void List<listdata>::startIterator() {
-	iterator = start;
-}
-
-template<class listdata>
-void List<listdata>::removeIterator() {
-	assert(iterator != NULL);
-	if (iterator == start)
-		removeStart();
-	else if (iterator == stop)
-		removeStop();
-	else {
-		iterator->previous->next = iterator->next;
-		iterator->next->previous = iterator->previous;
-		delete iterator;
 		length--;
 	}
-	iterator = NULL;
-}
-
-template<class listdata>
-void List<listdata>::insertIterator(listdata data) {
-	assert(iterator != NULL);
-	if (iterator == stop)
-		insertStop(data);
-	else {
-		Node* N = new Node(data);
-		N->previous = iterator;
-		N->next = iterator->next;
-		iterator->next->previous = N;
-		iterator->next = N;
-		length++;
+	else
+	{
+		start = start -> next;
+		delete start -> previous;
+		start -> previous = NULL;
+		length--;
 	}
 }
 
-template<class listdata>
-void List<listdata>::moveIterNext() {
-	assert(iterator != NULL);
-	iterator = iterator->next;
-}
-
-template<class listdata>
-void List<listdata>::moveIterPrevious() {
-	assert(iterator != NULL);
-	iterator = iterator->previous;
-}
-
-template<class listdata>
-void List<listdata>::displayList(ostream &out) const {
-	Node* temp = start;
-	while (temp != NULL) {
-		out << temp->data << " ";
-		temp = temp->next;
+template <class listdata>   //removes last element in the list
+void List<listdata>::removeStop()
+{
+    assert(stop);
+    if (length == 1)
+	{
+		delete stop;
+		start = stop = NULL;
+		length = 0;
 	}
-	out << endl;
-}
-
-template<class listdata>
-void List<listdata>::displayNumberedList(ostream &out) const {
-	Node* temp = start;
-	int elem = 1;
-	out << left << setw(15) << "Element" << "Value" << endl;
-	while (temp != NULL) {
-		out << left << setw(15) << elem << temp->data << endl;
-		temp = temp->next;
-		elem++;
+	else
+	{
+		stop = stop -> previous;
+		delete stop -> next;
+		stop -> next = NULL;
+		length--;
 	}
 }
 
-//*****NEW FUNCTIONS IN LAB4*****
-
-template<class listdata>
-bool List<listdata>::isSorted() const { //Wrapper function for isSorted
-	return isSorted(start);
+template <class listdata>   //Inserts node at start of list
+void List<listdata>::insertStart(listdata data)
+{
+    Node* N = new Node(data);
+    if (length == 0)
+    {
+        start = N;
+        stop = N;
+    }
+    else
+    {
+        N -> next = start;
+        start -> previous = N;
+        start = N;
+    }
+    length++;
 }
 
-template<class listdata>
-bool List<listdata>::isSorted(Node* node) const { //Helper function for isSorted
-	if (node == stop) {
-		return true;
-	} else if (node->data < node->next->data) {
-		isSorted(node->next);
-	} else {
-		return false;
+template <class listdata>   //Inserts node at end of list
+void List<listdata>::insertStop(listdata data)
+{
+	Node* N = new Node(data);
+	if (length == 0)
+	{
+		start = N;
+		stop = N;
 	}
-}
-
-template<class listdata>
-int List<listdata>::getIndex() const {
-	assert(iterator != NULL);
-	Node* temp = start;
-	int index = 1;
-	while (true) {
-		if (temp == iterator) {
-			return index;
-		}
-		temp = temp->next;
-		index++;
+	else
+	{
+		stop -> next = N;
+		N -> previous = stop;
+		stop = N;
 	}
+	length++;
 }
 
-template<class listdata>
+template <class listdata>   //moves iterator to start of list
+void List<listdata>::startIterator()
+{
+    iterator = start;
+}
+
+template <class listdata>   //removes element pointed at by iterator.
+void List<listdata>::removeIterator()
+{
+    assert(iterator);
+    if (iterator -> next)
+    {
+    iterator -> next -> previous = iterator -> previous;
+    }
+    else
+    {
+        stop = iterator -> previous;
+    }
+    if (iterator -> previous)
+    {
+    iterator -> previous -> next = iterator -> next;
+    }
+    else
+    {
+        start = iterator -> next;
+    }
+    delete iterator;
+    iterator = NULL;
+    length--;
+}
+
+template <class listdata>   //inserts an element after the element the iterator
+void List<listdata>::insertIterator(listdata data)
+{
+    assert(iterator);
+    Node * newNode = new Node(data);
+    if (iterator -> next)
+    {
+        iterator -> next -> previous = newNode;
+        newNode -> next = iterator -> next;
+    }
+    else
+    {
+        stop = newNode;
+    }
+    newNode -> previous = iterator;
+    iterator -> next = newNode;
+    length++;
+}
+
+template <class listdata>   //moves iterator towards the end
+void List<listdata>::moveIterNext()
+{
+    assert(iterator);
+    iterator = iterator -> next;
+}
+
+template <class listdata>   //moves iterator towards the start
+void List<listdata>::moveIterPrevious()
+{
+    assert(iterator);
+    iterator = iterator -> previous;
+}
+
+template <class listdata>
 void List<listdata>::moveToIndex(int index) {
-	assert((length != 0) && (index <= length));
-	iterator = start;
-	for (int i = 1; i < index; i++) {
-		iterator = iterator->next;
-	}
+    index--;
+    assert (length > 0);
+    assert (index <= length);
+    startIterator();
+    for (int i = 0; i < index; i++) {
+        moveIterNext();
+    }
 }
 
-template<class listdata>
-int List<listdata>::linearSearch(listdata data) const {
-	assert(length != 0);
-	Node* temp = start;
-	for (int i = 1; i <= length; i++) {
-		if (temp->data == data)
-			return i;
-		temp = temp->next;
-	}
-	return -1;
+/** Display functions */
+
+template <class listdata>   //Displays the list
+void List<listdata>::displayList(ostream &out) const
+{
+    Node* temp = start; //create a temporary iterator
+    while (temp != NULL) {
+    	out << temp->data << " ";	//outputs data
+    	temp = temp->next;		//moves iterator to next node
+    }
+    out << endl; //ends line after outputting list
 }
 
-template<class listdata>
-int List<listdata>::binarySearch(listdata data) const { //Wrapper function for binarySearch
-	assert((length != 0) && isSorted());
-	return binarySearch(1, length, data);
+template <class listdata>   //displays list vertically w/ numbers.
+void List<listdata>::displayNumberedList(ostream &out) const
+{
+    Node* temp = start;
+    int i = 1;
+    while (temp != NULL)
+    {
+        out << "#" << i << ": " << temp -> data << endl;
+        temp = temp -> next;
+        i++;
+    }
 }
 
-template<class listdata>
-int List<listdata>::binarySearch(int low, int high, listdata data) const { //Helper function for binarySearch
-	if (high < low)
-		return -1;
-	int mid = low + (high - low) / 2;
-	Node* temp = start;
-	for (int i = 1; i < mid; i++) {
-		temp = temp->next;
-	}
-	if (temp->data == data) {
-		return mid;
-	} else if (data < temp->data) {
-		return binarySearch(low, mid - 1, data);
-	} else {
-		return binarySearch(mid + 1, high, data);
-	}
+template <class listdata> //displays list in reverse - public wrapper function
+void List<listdata>::displayReverse(ostream &out) const
+{
+    cout << endl;
+    if (stop) {
+        displayReverse(stop, out);
+    }
 }
 
-template<class listdata>
-void List<listdata>::displayReverse(ostream &out) const { //Wrapper function for displayReverse
-	List<listdata>::displayReverse(stop, out);
+template <class listdata> //displays list in reverse - recursive helper function
+void List<listdata>::displayReverse(Node * node, ostream &out) const
+{
+    out << node -> data << " ";
+    if (node -> previous != NULL) {
+        displayReverse(node -> previous, out);
+    }
 }
 
-template<class listdata>
-void List<listdata>::displayReverse(Node* node, ostream &out) const { //Helper function for displayReverse
-	if (node == NULL) {
-		return;
-	}
-	out << node->data << " ";
-	displayReverse(node->previous, out);
-}
 
-#endif /* LIST_H_ */
+
+

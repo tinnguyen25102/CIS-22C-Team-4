@@ -1,5 +1,9 @@
 #ifndef CUSTOMER_H_
 #define CUSTOMER_H_
+#ifndef CUSTOMER_H_
+#define CUSTOMER_H_
+
+#include "User.h"
 
 #include "List.h"
 #include <iostream>
@@ -7,6 +11,7 @@
 
 #include "Order.h"
 #include "User.h"
+
 using namespace std;
 
 class Customer : public User {
@@ -52,5 +57,12 @@ public:
 };
 
 
+	void read(ifstream& in);	//read data from file
+	void write(ostream& out);	//write data to file
 
-#endif /* CUSTOMER_H_ */
+	friend ostream& operator<<(ostream& out, const Customer& customer);		//display in console
+};
+
+
+
+

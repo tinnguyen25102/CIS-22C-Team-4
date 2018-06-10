@@ -1,24 +1,41 @@
 /*
  * User.h
  *
- *  Created on: May 31, 2018
- *      Author: tinnguyen
+ *  Created on: June 7, 2018
+ *      Author: vupham
  */
 
 #ifndef USER_H_
 #define USER_H_
-#include "Customer.h"
+
 #include <iostream>
+#include <string>
 using namespace std;
 
-class user : public Customer {
+class User {
+protected:
+	string username;
+	string password;
+	string firstname;
+	string lastname;
+	bool isEmployee;
+
 public:
-	user();
-	user(string username, string password, bool isEmployee);
+	User();
 
-	//
+	string getUsername() const;
+	string getPassword() const;
+	string getFirstname() const;
+	string getLastname() const;
+	bool getIsEmployee() const;
+
+	void setUsername(string username);
+	void setPassword(string password);
+	void setFirstname(string firstname);
+	void setLastname(string lastname);
+	void setIsEmployee(bool isEmployee);
+
 };
-
 
 
 #endif /* USER_H_ */
