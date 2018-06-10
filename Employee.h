@@ -1,10 +1,3 @@
-/*
- * User.h
- *
- *  Created on: June 7, 2018
- *      Author: vupham
- */
-
 #ifndef EMPLOYEE_H_
 #define EMPLOYEE_H_
 

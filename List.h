@@ -1,10 +1,3 @@
-/*
- * List.h
- *
- *  Created on: Apr 11, 2018
- *  by Andrew Maxwell
- */
-
 #ifndef LIST_H_
 #define LIST_H_
 #include <iostream>

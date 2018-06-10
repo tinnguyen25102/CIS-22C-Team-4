@@ -1,11 +1,3 @@
-/*
- * HashTable.h
- *
- *  Created on: May 31, 2018
- *      Author: tinnguyen
- */
-
-
 #ifndef HASHTABLE_H_
 #define HASHTABLE_H_
 

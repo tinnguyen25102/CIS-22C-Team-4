@@ -1,10 +1,3 @@
-/*
- * ProductS.cpp
- *
- *  Created on: May 30, 2018
- *      Author: vupham
- */
-
 #include "ProductS.h"
 #include <iostream>
 using namespace std;

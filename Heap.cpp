@@ -1,10 +1,3 @@
-/*
- * Heap.cpp
- *
- *  Created on: Jun 2, 2018
- *      Author: Andrew Maxwell
- */
-
 #include <vector>
 #include <iostream>
 #include <math.h>

@@ -1,10 +1,3 @@
-/*
- * BST.h
- *
- *  Created on: May 30, 2018
- *      Author: vupham
- */
-
 #ifndef BST_H_
 #define BST_H_
 

@@ -1,10 +1,3 @@
-/*
- * Customer.cpp
- *
- *  Created on: Jun 7, 2018
- *      Author: vupham
- */
-
 #include "Customer.h"
 #include <iostream>
 #include "Order.h"

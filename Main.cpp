@@ -1,10 +1,3 @@
-/*
- * Main.cpp
- *
- *  Created on: Jun 4, 2018
- *      Author: melgharbawy
- */
-
 #include <iostream>
 #include "BST.h"
 #include "Customer.h"

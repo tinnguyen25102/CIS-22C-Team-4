@@ -1,10 +1,3 @@
-/*
- * Heap.h
- *
- *  Created on: Jun 2, 2018
- *      Author: Andrew Maxwell
- */
-
 #ifndef HEAP_H_
 #define HEAP_H_
 

@@ -1,10 +1,3 @@
-/*
- * Order.cpp
- *
- *  Created on: Jun 2, 2018
- *      Author: Andrew
- */
-
 #include "Product.h"
 #include "Order.h"
 #include <assert.h>

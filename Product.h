@@ -1,10 +1,3 @@
-/*
- * Product.h
- *
- *  Created on: May 30, 2018
- *      Author: vupham
- */
-
 #ifndef PRODUCT_H_
 #define PRODUCT_H_
 

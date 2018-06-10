@@ -1,10 +1,3 @@
-/*
- * User.cpp
- *
- *  Created on: Jun 7, 2018
- *      Author: vupham
- */
-
 #include "User.h"
 #include <iostream>
 #include <iomanip>

@@ -1,10 +1,3 @@
-/*
- * SubOrder.h
- *
- *  Created on: Jun 4, 2018
- *      Author: Andrew
- */
-
 #ifndef SRC_SUBORDER_H_
 #define SRC_SUBORDER_H_
 

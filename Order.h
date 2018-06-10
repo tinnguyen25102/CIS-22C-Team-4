@@ -1,10 +1,3 @@
-/*
- * Order.h
- *
- *  Created on: Jun 2, 2018
- *      Author: Andrew Maxwell
- */
-
 #ifndef ORDER_H_
 #define ORDER_H_
 
