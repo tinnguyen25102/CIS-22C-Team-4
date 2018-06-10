@@ -41,6 +41,7 @@ public:
 
     void insert(htdata c);
 
+    void displayFirstname(Customer c);
 
     void Display(htdata c,ostream& out) ;
 
@@ -71,20 +72,24 @@ template<class htdata>
 void HashTable<htdata>::Display(htdata c, ostream& out) {
 	int index = hash ( c.getFirstname()+ c.getLastname());
 	//Table[index].displayNumberedList(out);
-	Table[index].displayNumberedList(cout);
+	c.printCustomerHeader(cout);
+	Table[index].displayList(cout);
 }
 
 template<class htdata>
 int HashTable<htdata>::search (htdata f) const{
 	int index = hash (f.getFirstname()+ f.getLastname());
-		return Table[index].linearSearch(f);
-	/*
 	if(Table[index].linearSearch(f) != -1){
-		return index;			//return index of customer, working on return multiple customer
+		return index;
 	}
-	else return -1; */
+	return -1;
+
 }
 
+template<class htdata>
+void HashTable<htdata>::displayFirstname(Customer c){
+
+	}
 
 
 #endif /* HASHTABLE_H_ */
