@@ -8,11 +8,11 @@
 #ifndef ORDER_H_
 #define ORDER_H_
 
-#include "BST.h"
+#include "List.h"
 #include "SubOrder.h"
+#include "BST.h"
 #include "Customer.h"
 #include <ctime>
-#include <sstream>
 using namespace std;
 
 class Customer;
@@ -88,9 +88,9 @@ public:
 
 	bool operator<=(const Order&);
 
-	void print(ostream & out);
+	string print();
 
-	void printDetailed(ostream & out);
+	string printDetailed();
 
 	void save(ostream & out);
 
