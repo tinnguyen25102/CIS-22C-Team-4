@@ -1,3 +1,8 @@
+/*
+ * Heap.h
+ * Andrew Maxwell
+ */
+
 #ifndef HEAP_H_
 #define HEAP_H_
 

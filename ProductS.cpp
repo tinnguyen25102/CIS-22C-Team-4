@@ -1,3 +1,8 @@
+/*
+ * ProductS.cpp
+ * Vu Pham
+ */
+
 #include "ProductS.h"
 #include <iostream>
 using namespace std;

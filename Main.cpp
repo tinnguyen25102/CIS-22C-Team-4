@@ -1,4 +1,10 @@
+/*
+ * Main.cpp
+ * Mohamed Elgharbawy
+ */
+
 #include <iostream>
+
 #include "BST.h"
 #include "Customer.h"
 #include "Employee.h"
@@ -6,11 +12,7 @@
 #include "ProductS.h"
 #include "Heap.h"
 
-class Order;
-
 using namespace std;
-
-
 
 int main() {
 

@@ -1,3 +1,9 @@
+/*
+ * HashTable.h
+ * Tin Nguyen
+ */
+
+
 #ifndef HASHTABLE_H_
 #define HASHTABLE_H_
 

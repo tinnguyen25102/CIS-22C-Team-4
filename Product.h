@@ -1,3 +1,8 @@
+/*
+ * Product.h
+ * Vu Pham
+ */
+
 #ifndef PRODUCT_H_
 #define PRODUCT_H_
 

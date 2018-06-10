@@ -1,3 +1,8 @@
+/*
+ * Customer.cpp
+ * Tin Nguyen
+ */
+
 #include "Customer.h"
 #include <iostream>
 #include "Order.h"

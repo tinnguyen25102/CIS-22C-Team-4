@@ -1,3 +1,8 @@
+/*
+ * SubOrder.h
+ * Andrew Maxwell
+ */
+
 #ifndef SRC_SUBORDER_H_
 #define SRC_SUBORDER_H_
 

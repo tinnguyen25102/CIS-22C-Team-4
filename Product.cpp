@@ -1,3 +1,8 @@
+/*
+ * Product.cpp
+ * Vu Pham
+ */
+
 #include "Product.h"
 #include <iostream>
 #include <iomanip>

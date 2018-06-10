@@ -1,3 +1,8 @@
+/*
+ * BST.h
+ * Vu Pham
+ */
+
 #ifndef BST_H_
 #define BST_H_
 

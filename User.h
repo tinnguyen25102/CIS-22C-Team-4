@@ -1,3 +1,8 @@
+/*
+ * User.h
+ * Vu Pham
+ */
+
 #ifndef USER_H_
 #define USER_H_
 

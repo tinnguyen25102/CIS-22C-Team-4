@@ -1,3 +1,8 @@
+/*
+ * User.h
+ * Vu Pham
+ */
+
 #include "User.h"
 #include <iostream>
 #include <iomanip>
