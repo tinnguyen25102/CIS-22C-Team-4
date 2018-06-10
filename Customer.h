@@ -17,6 +17,7 @@ private:
 	string city;
 	unsigned zip;
 	string email;
+	Order order;
 	List<Order> orders;
 
 public:
@@ -34,8 +35,8 @@ public:
 	void setZip(unsigned zip);
 	void setEmail(string email);
 
-	void displayCustomer(Customer c, ostream& out);
-	void getOrderList(ostream &out) const;		//print list of orders
+	void displayCustomer(ostream& out); //print all customers
+	void getOrder(ostream &out) const;		//print list of orders
 	void insertOrder(Order order);				//insert new order to list
 	void removeOrder(Order order);				//remove an order from list
 
