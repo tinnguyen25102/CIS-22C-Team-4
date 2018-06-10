@@ -18,6 +18,7 @@ private:
 	unsigned zip;
 	string email;
 	List<Order> orders;
+	Order order;
 
 public:
 	Customer();
