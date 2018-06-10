@@ -38,7 +38,9 @@ public:
 
     void insert(htdata c);
 
-
+    void displayByLastname(ostream& out, string lastname) ;
+    void displayByFirstname(ostream& out, string firstname);
+    void displayCustomer(ostream& out);
     void Display(htdata c,ostream& out) ;
 
 private:
@@ -82,6 +84,38 @@ int HashTable<htdata>::search (htdata f) const{
 	else return -1; */
 }
 
+template <class htdata>
+void HashTable<htdata>::displayCustomer(ostream& out) {
+	for (int i =0; i< SIZE; i++){
+
+			Table[i].displayList(out);
+}
+}
+
+template <class htdata>
+void HashTable<htdata>::displayByFirstname(ostream& out, string firstname) {
+	for (int i =0; i< SIZE; i++){
+		Table[i].startIterator();
+		for (int j=0; j <Table[i].getLength(); j++){
+			if(Table[i].getIterator().getFirstname() == firstname){
+				out << Table[i].getIterator();
+			}
+			Table[i].moveIterNext();
+		}
+	}
+}
 
 
+template <class htdata>
+void HashTable<htdata>::displayByLastname(ostream& out, string lastname) {
+	for (int i =0; i< SIZE; i++){
+		Table[i].startIterator();
+		for (int j=0; j <Table[i].getLength(); j++){
+			if(Table[i].getIterator().getLastname() == lastname){
+				out << Table[i].getIterator();
+			}
+			Table[i].moveIterNext();
+		}
+	}
+}
 #endif /* HASHTABLE_H_ */
