@@ -41,7 +41,7 @@ public:
     //Called as a helper function of the constructor
     //Calls heapify as a helper function
 
-    void place(Order * o, int days);
+    void place(Order * o, int days);	//TODO: handle empty orders, also test edge cases
     //Inserts a new value onto the end of the heap and
     //Bubbles it up to the correct location in the heap
     //Calls heap_increase_key as a helper function
@@ -83,10 +83,10 @@ public:
     void displayHeap(ostream& out) const;
     //prints the heap in level order. USED FOR DEBUGGING ONLY.
 
-    void printSorted(ostream& out);
+    string printSorted();
     //prints the heap as a list of orders, highest priority first.
 
-    void print(ostream & out, int index);
+    string print(int index);
 
 };
 

@@ -155,15 +155,16 @@ bool DEBUG = false;
                 out << endl;
                 level++;
             }
-            heap -> at(i) -> print(out);
+            out << heap -> at(i) -> print();
         }
     }
 
-    void Heap::print(ostream & out, int index) {
-    	heap -> at(index) -> printDetailed(out);
+    string Heap::print(int index) {
+    	return heap -> at(index) -> printDetailed();
     }
 
-    void Heap::printSorted(ostream& out) {
+    string Heap::printSorted() {
+    	stringstream out;
     	int realLength = heap_size;
     	while (heap_size > 1) {
     		if (DEBUG) {
@@ -186,8 +187,9 @@ bool DEBUG = false;
     	}
     	heap_size = realLength;
         for (int i = heap_size; i >= 1; i--) {
-            (*heap)[i] -> print(out);
+            out << (*heap)[i] -> print();
         }
     	build_heap();
+    	return out.str();
     }
     //prints each element in the array (heap) on a different line

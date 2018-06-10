@@ -88,9 +88,9 @@ public:
 
 	bool operator<=(const Order&);
 
-	void print(ostream & out);
+	string print();
 
-	void printDetailed(ostream & out);
+	string printDetailed();
 
 	void save(ostream & out);
 
