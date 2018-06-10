@@ -8,9 +8,11 @@
 #ifndef EMPLOYEE_H_
 #define EMPLOYEE_H_
 
-#include "User.h"
 #include <iostream>
 #include <string>
+
+#include "User.h"
+
 using namespace std;
 
 class Employee : public User {

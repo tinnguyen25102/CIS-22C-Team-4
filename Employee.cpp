@@ -108,7 +108,7 @@ void Employee::write(ostream& out) {
 	out << isEmployee << '\n' << '\n';
 }
 
-friend ostream& operator<<(ostream& out, const Employee& employee) {
+ostream& operator<<(ostream& out, const Employee& employee) {
 	out << left << setw(15) << employee.firstname << employee.lastname << "\n";
 	return out;
 }

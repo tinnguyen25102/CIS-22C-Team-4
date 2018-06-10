@@ -169,7 +169,6 @@ using namespace std;
 		}
 	}
 
-	/* OLD VERSION OF PRINT FUNCTION; USES STREAM OUTPUT
 	void Order::print(ostream & out) {	//Prints basic information about the order, including where to ship, etc.
 		out << fixed << setprecision(2) << endl << "Total value: $" << price;
 		if (placed) {
@@ -184,31 +183,11 @@ using namespace std;
 				out << "Waiting to be shipped";
 			}
 		}
-	}*/
-
-	//NEW VERSION OF PRINT FUNCTION: RETURNS STRING WITH OUTPUT
-	string Order::print() {	//Prints basic information about the order, including where to ship, etc.
-		stringstream out;
-		out << fixed << setprecision(2) << endl << "Total value: $" << price;
-		if (placed) {
-			out <<" Arrive by: " << getArriveBy() << " Status: ";
-			if (shipped) {
-				if (isDelivered()) {
-					out << "Delivered";
-				} else {
-					out << "En route";
-				}
-			} else {
-				out << "Waiting to be shipped";
-			}
-		}
-		return out.str();
 	}
 
-	string Order::printDetailed() {	//Prints above information + also the list of all laptops.
-		stringstream out;
-		out.str() += print();
-		customer -> print(out);
+	void Order::printDetailed(ostream & out) {	//Prints above information + also the list of all laptops.
+		print(out);
+		//customer -> print(out);
 		if (laptops.getLength() > 0) {
 			out << endl << "Laptops:" << endl;
 			laptops.displayNumberedList(out);
@@ -217,7 +196,6 @@ using namespace std;
 			out << "Your cart is empty!";
 		}
 		out << endl << endl;
-		return out.str();
 	}
 
 	void Order::save(ostream & out) {	//Prints out all information in format for load() to read

@@ -8,9 +8,11 @@
 #ifndef PRODUCTS_H_
 #define PRODUCTS_H_
 
-#include "Product.h"
 #include <iostream>
 #include <string>
+
+#include "Product.h"
+
 using namespace std;
 
 class ProductS : public Product {
@@ -18,7 +20,7 @@ public:
 	ProductS();
 	ProductS(string make, string model, double screenSize, unsigned cpuGen, unsigned year, double price);
 
-	void operator=(const Product& product);
+	void operator=(const ProductS& product);
 	//copies contents from Product to ProductS
 
 	//Overriding functions

@@ -7,7 +7,6 @@
 
 #include "Customer.h"
 #include <iostream>
-#include "List.h"
 #include "Order.h"
 #include <iomanip>
 #include <fstream>
@@ -71,9 +70,9 @@ void Customer::setEmail(string email) {
 	this->email = email;
 }
 
-void Customer::getOrderList(ostream &out) const {
-orders.displayList(out);
-}
+/*void Customer::getOrderList(ostream &out) const {
+orders.displayList(out);	//TODO:
+}*/
 
 void Customer::insertOrder(Order order) {
 	orders.insertStop(order);

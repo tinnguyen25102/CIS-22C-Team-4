@@ -1,13 +1,15 @@
 #ifndef CUSTOMER_H_
 #define CUSTOMER_H_
 
-#include "List.h"
 #include <iostream>
 #include <string>
 
+#include "List.h"
 #include "Order.h"
 #include "User.h"
 using namespace std;
+
+class Order;
 
 class Customer : public User {
 private:
