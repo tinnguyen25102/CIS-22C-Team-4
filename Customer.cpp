@@ -71,7 +71,7 @@ void Customer::setEmail(string email) {
 }
 
 /*void Customer::getOrderList(ostream &out) const {
-orders.displayList(out);	//TODO:
+orders.displayList(out);	//TODO: Change this
 }*/
 
 void Customer::insertOrder(Order order) {

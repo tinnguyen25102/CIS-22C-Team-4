@@ -25,7 +25,7 @@ ProductS::ProductS(string make, string model, double screenSize, unsigned cpuGen
 	this->year = year;
 	this->price = price;
 }
-//void operator=(const ProductS& product);
+
 void ProductS::operator=(const ProductS& product) {
 	make = product.getMake();
 	model = product.getModel();

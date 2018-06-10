@@ -9,6 +9,7 @@
 #include "Order.h"
 #include <assert.h>
 #include <iomanip>
+#include <sstream>
 using namespace std;
 
 
@@ -208,7 +209,7 @@ using namespace std;
 	string Order::printDetailed() {	//Prints above information + also the list of all laptops.
 		stringstream out;
 		out.str() += print();
-		customer -> print(out);
+		//customer -> print(out);
 		if (laptops.getLength() > 0) {
 			out << endl << "Laptops:" << endl;
 			laptops.displayNumberedList(out);

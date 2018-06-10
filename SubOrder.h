@@ -12,15 +12,17 @@
 
 struct subOrder {
 	Product * laptop;
-	int quantity = 1;
+	int quantity;
 	float price;
 	subOrder() {
 		laptop = NULL;
 		price = 0;
+		quantity = 1;
 	}
 	subOrder(Product * toBuy) {
 		laptop = toBuy;
 		price = toBuy->getPrice();
+		quantity = 1;
 	}
 	void setQuantity(int q) {
 		quantity = q;
