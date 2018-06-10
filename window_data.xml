@@ -1,0 +1,511 @@
+<window id="welcome_screen">
+	<title>
+		Welcome to the store!
+	</title>
+	<label>
+		Are you a:
+	</label>
+	<button options="link:customer_login_screen">
+		Customer
+	</button>
+	<button options="link:employee_login_screen">
+		Employee
+	</button>
+</window>
+<window id="customer_login_screen">
+	<title>
+		What do you want to do?
+	</title>
+	<button options="link:customer_sign_in_using_and_existing_account">
+		Sign in using an existing account
+	</button>
+	<button options="link:customer_create_new_account">
+		Create new account
+	</button>
+	<button options="link:welcome_screen">
+		Go back
+	</button>
+</window>
+<window id="customer_sign_in_using_and_existing_account">
+	<title>
+		Sign in using an existing account:
+	</title>
+	<label>
+		Email
+	</label>
+	<entry>
+		email
+	</entry>
+	<label>
+		Password
+	</label>
+	<entry type="psw">
+		psw
+	</entry>
+	<button options="link:customer_interface,name:customer_sign_in">
+		submit
+	</button>
+</window>
+<window id="customer_create_new_account">
+	<title>
+		Create a new account
+	</title>
+	<label>
+		Enter your email:
+	</label>
+	<entry>
+		email
+	</entry>
+	<label>
+		Confirm your email:
+	</label>
+	<variable id="email_err">
+	<entry>
+		conf_email
+	</entry>
+	<label>
+		Enter your password:
+	</label>
+	<variable id="psw_err">
+	<entry type="psw">
+		psw
+	</entry>
+	<label>
+		Confirm your password:
+	</label>	
+	<entry type="psw">
+		conf_psw
+	</entry>
+	<button options="link:customer_create_new_account_cont,name:customer_create_new_account_1">
+		Enter
+	</button>
+</window>
+<window id="customer_create_new_account_cont">
+	<title>
+		Please provide us with the following information:
+	</title>
+	<label>
+		Enter your first name:
+	</label>
+	<entry>
+		fname
+	</entry>
+	<label>
+		Enter your last name:
+	</label>
+	<entry>
+		lname
+	</entry>
+	<label>
+		Enter your address (12345 Example ave):
+	</label>
+	<entry>
+		address
+	</entry>
+	<label>
+		Enter your phone number ((xxx) xxx-xxxx):
+	</label>
+	<entry>
+		phone_num
+	</entry>
+	<button options="link:customer_interface,name:customer_create_new_account_2">
+		submit
+	</button>
+</window>
+<window id="customer_interface">
+	<title>
+		Customer Menu
+	</title>
+	<button options="link:customer_search_for_a_product">
+		Search for a product
+	</button>
+	<button options="link:customer_list_database_for_products">
+		List database for products
+	</button>
+	<button options="link:customer_view_cart">
+		View Cart or Place an order
+	</button>
+	<button options="link:customer_view_purchase_history">
+		View purchases
+	</button>
+	<button options="link:end_screen">
+		Sign out
+	</button>
+</window>
+<window id="customer_search_for_a_product">
+	<title>
+		Search for a product
+	</title>
+	<label>
+		Search for a product by manufacturing company
+	</label>
+	<entry>
+		manf_company
+	</entry>
+	<label>
+		Or:
+	</label>
+	<label>
+		Search for a product by model
+	</label>
+	<entry>
+		product_model
+	</entry>
+	<button options="link:customer_search_results,name:customer_search">
+		Search -O
+	</button>
+	<button options="link:customer_interface">
+		Go back
+	</button>
+</window>
+<window id="customer_search_results">
+	<title>
+		Search Results:
+	</title>
+	<variable>
+	</variable>
+	<button options="link:customer_search_for_a_product">
+		Search again
+	</button>
+</window>
+<window id="customer_computer_detailed_page">
+	<title>
+		More information:
+	</title>
+	<variable>
+	</variable>
+	<button options="link:customer_view_cart">
+		add to cart
+	</button>
+	<button options="link:customer_search_for_a_product">
+		search again
+	</button>
+</window>
+<window id="customer_list_database_for_products">
+	<title>
+		List Database
+	</title>
+	<label>
+		Do you want to list products sorted by:
+	</label>
+	<button options="link:customer_list_database_for_products_results,name:customer_db_search,value:comp_name">
+		Company Name
+	</button>
+	<button options="link:customer_list_database_for_products_results,name:customer_db_search,value:price">
+		Price
+	</button>
+	<button options="link:customer_interface">
+		go back
+	</button>
+</window>
+<window id="customer_list_database_for_products_results">
+	<title>
+		Here is our Database:
+	</title>
+	<variable>
+	</variable>
+	<button options="link:customer_list_database_for_products">
+		go back
+	</button>
+</window>
+<window id="customer_view_cart">
+	<title>
+		Your Cart:
+	</title>
+	<variable>
+	</variable>
+	<button options="link:customer_checkout">
+		Checkout
+	</button>
+	<button options="link:customer_interface">
+		go back
+	</button>
+</window>
+<window id="customer_checkout">
+	<title>
+		Checkout:
+	</title>
+	<variable>
+	</variable>
+	<button options="link:customer_view_purchase_history,name:place_order,value:standard">
+		Standard Shipping
+	</button>
+	<label>
+		(5-7 business days)
+	</label>
+	<button options="link:customer_view_purchase_history,name:place_order,value:rush">
+		Rush Shipping
+	</button>
+	<label>
+		(3-5 business days)
+	</label>
+	<button options="link:customer_view_purchase_history,name:place_order,value:overnight">
+		Overnight Shipping
+	</button>
+	<label>
+		(1-2 business days)
+	</label>
+	<button options="link:customer_view_cart">
+		Cancel
+	</button>
+</window>
+<window id="customer_view_purchase_history">
+	<title>
+		Purchase History
+	</title>
+	<variable>
+	</variable>
+	<button options="link:customer_interface">
+		back
+	</button>
+</window>
+<window id="employee_login_screen">
+	<title>
+		Enter Login information
+	</title>
+	<label>
+		Employee ID:
+	</label>
+	<entry>
+		id
+	</entry>
+	<label>
+		Password:
+	</label>
+	<entry type="psw">
+		psw
+	</entry>
+	<button options="link:employee_interface,name:employee_login">
+		submit
+	</button>
+</window>
+<window id="employee_interface">
+	<title>
+		Employee Menu
+	</title>
+	<button options="link:employee_search_customer_by_name">
+		Search for a customer by name
+	</button>
+	<button options="link:employee_unsorted_customer_information">
+		Display unsorted customer information
+	</button>
+	<button options="link:employee_view_order_by_priority">
+		View orders by priority
+	</button>
+	<button options="link:employee_list_database_select">
+		List database of products
+	</button>
+	<button options="link:employee_add_new_product">
+		Add a new product
+	</button>
+	<button options="link:employee_remove_product">
+		Remove a product
+	</button>
+	<button options="link:end_screen">
+		Logout
+	</button>
+</window>
+<window id="employee_search_customer_by_name">
+	<title>
+		Search for a customer by name
+	</title>
+	<label>
+		first name:
+	</label>
+	<entry>
+		fname
+	</entry>
+	<label>
+		last name:
+	</label>
+	<entry>
+		lname
+	</entry>
+	<button options="link:employee_search_customer_results,name:employee_customer_search">
+		submit
+	</button>
+</window>
+<window id="employee_search_customer_results">
+	<title>
+		Search Results
+	</title>
+	<variable>
+	</variable>
+	<button options="link:employee_interface">
+		go back
+	</button>
+</window>
+<window id="employee_unsorted_customer_information">
+	<title>
+		Unsorted Customer Information
+	</title>
+	<variable>
+	</variable>
+	<button options="link:employee_interface">
+		go back
+	</button>
+</window>
+<window id="employee_view_order_by_priority">
+	<title>
+		View Orders by priority
+	</title>
+	<variable>
+	</variable>
+	<button options="link:employee_interface">
+		Go back
+	</button>
+</window>
+<window id="employee_confirm_ship_order">
+	<title>
+		Review Order for shipping
+	</title>
+	<variable>
+	</variable>
+	<button options="link:employee_confirm_ship_order,name:confirm">
+		Confirm
+	</button>
+	<button options="link:employee_view_order_by_priority">
+		Cancel
+	</button>
+</window>
+<window id="employee_list_database_select">
+	<title>
+		List Database
+	</title>
+	<label>
+		Sort Database by:
+	</label>
+	<button options="link:employee_list_database_results,name:employee_db_search,value:comp_name">
+		Company name
+	</button>
+	<button options="link:employee_list_database_results,name:employee_db_search,value:price_htl">
+		price: highest to lowest
+	</button>
+	<button options="link:employee_list_database_results,name:employee_db_search,value:price_lth">
+		price: lowest to highest
+	</button>
+	<button options="link:employee_interface">
+		go Back
+	</button>
+</window>
+<window id="employee_list_database_results">
+	<title>
+		List Database of products by:
+	</title>
+	<variable>
+	</variable>
+	<button options="link:employee_interface">
+		Go Back
+	</button>
+</window>
+<window id="employee_add_new_product">
+	<title>
+		Add a new product
+	</title>
+	<label>
+		Enter company:
+	</label>
+	<entry>
+		company
+	</entry>
+	<label>
+		Enter model:
+	</label>
+	<entry>
+		model
+	</entry>
+	<label>
+		Enter price:
+	</label>
+	<entry>
+		price
+	</entry>
+	<label>
+		Enter year:
+	</label>
+	<entry>
+		year
+	</entry>
+	<label>
+		Enter CPU Gen:
+	</label>
+	<entry>
+		cpu
+	</entry>
+	<label>
+		Enter Screen Size(in):
+	</label>
+	<entry>
+		screen_size
+	</entry>
+	<label>
+		Enter Resolution:
+	</label>
+	<entry>
+		resolution
+	</entry>
+	<label>
+		Enter Aspect Ratio:
+	</label>
+	<entry>
+		ar
+	</entry>
+	<label>
+		Enter Max RAM:
+	</label>
+	<entry>
+		ram
+	</entry>
+	<label>
+		Enter Weight:
+	</label>
+	<entry>
+		weight
+	</entry>
+	<button options="link:employee_add_new_product_confirm,name:employee_add_product">
+		submit
+	</button>
+	<button options="link:employee_interface">
+		cancel
+	</button>
+</window>
+<window id="employee_add_new_product_confirm">
+	<title>
+		Product added!
+	</title>
+	<label>
+		product summary:
+	</label>
+	<variable>
+	</variable>
+	<button options="link:employee_add_product">
+		Add another product
+	</button>
+	<button options="link:employee_interface">
+		go back
+	</button>
+</window>
+<window id="employee_remove_product">
+	<title>
+		Remove a product
+	</title>
+	<variable>
+	</variable>
+	<button options="link:employee_interface">
+		cancel
+	</button>
+</window>
+<window id="end_screen">
+	<title>
+		Writing data to files...
+	</title>
+	<pbar>
+		writing
+	</pbar>
+	<button options="link:welcome_screen">
+		back
+	</button>
+	<button options="link:end_screen,name:quit">
+		quit
+	</button>
+</window>
