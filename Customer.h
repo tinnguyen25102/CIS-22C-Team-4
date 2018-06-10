@@ -1,143 +1,56 @@
-/*
- * Class.h
- *
- *  Created on: May 31, 2018
- *      Author: tinnguyen
- */
-
 #ifndef CUSTOMER_H_
 #define CUSTOMER_H_
 
-#include <string>
 #include "List.h"
-#include "Order.h"
 #include <iostream>
+#include <string>
+
+#include "Order.h"
+#include "User.h"
 using namespace std;
 
-class Customer {
+class Customer : public User {
 private:
-	string first_name;
-	string last_name;
 	string address;
 	string city;
-	string state;
-	int zip;
+	unsigned zip;
+	string email;
 	List<Order> orders;
 
 public:
+	Customer();
+	Customer(string username, string password, string firstName, string lastName, bool isEmployee, string address, string city, unsigned zip, string email);
+	//No orders in constructor
 
-	Customer() {
-		first_name = "";
-		last_name = "";
-		address = "";
-		city = "";
-		state = "";
-		zip = 0;
-		//orders=;
-	}
-	Customer(string fname, string lname, string address, string city, string state, int zip, orders order){
-		this->first_name=fname;
-		this->last_name=lname;
-		this->address=address;
-		this->city=city;
-		this->state=state;
-		this->zip=zip;
-		this->orders=order;
-	}
+	string getAddress() const;
+	string getCity() const;
+	unsigned getZip() const;
+	string getEmail() const;
 
-	//setters functions:
-	void set_First_Name(string firstname){
-		this->first_name = firstname;
-	}
-	void set_Last_Name(string lastname){
-			this->last_name = lastname;
-		}
-	void set_Address(string address){
-		this->address=address;
-	}
-	void set_State(string state){
-		this->state=state;
-	}
-	void set_City(string city){
-		this->city=city;
-	}
-	void set_Zip(int zip){
-		this->zip=zip;
-	}
+	void setAddress(string address);
+	void setCity(string city);
+	void setZip(unsigned zip);
+	void setEmail(string email);
 
-	//getters function:
+	void displayCustomer(Customer c, ostream& out);
+	void getOrderList(ostream &out) const;		//print list of orders
+	void insertOrder(Order order);				//insert new order to list
+	void removeOrder(Order order);				//remove an order from list
 
-	string get_First_Name(){
-		return first_name;
-	}
-	string get_Last_Name(){
-		return last_name;
-	}
-	string get_Address(){
-		return address;
-	}
-	string get_State(){
-		return state;
-	}
-	string get_City(){
-		return city;
-	}
-	int get_Zip(){
-		return zip;
-	}
+	bool operator==(const Customer& customer);
+	bool operator<(const Customer& customer);
+	bool operator>(const Customer& customer);
 
-	bool operator==(const Customer& customer) {
-		return (first_name == customer.first_name && last_name == customer.last_name);
-	}
+	void printCustomerHeader(ostream& out);
+	string toString(const Customer& customer, ostream& out);
 
-	bool operator<(const Customer& customer) {
-		if (first_name < customer.first_name)
-			return true;
-		else if (first_name == customer.first_name) {
-			if (last_name < customer.last_name)
-				return true;
-			else
-				return false;
-		}
-		else
-			return false;
-	}
+	void read(ifstream& in);	//read data from file
+	void write(ostream& out);	//write data to file
 
-	bool operator>(const Customer& customer) {
-			if (first_name > customer.first_name)
-				return true;
-			else if (first_name == customer.first_name) {
-				if (last_name > customer.last_name)
-					return true;
-				else
-					return false;
-			}
-			else
-				return false;
-		}
-
-	void print(ostream& out) const {
-		out << first_name << '\n'
-			<< last_name << '\n'
-			<< address << '\n'
-			<< city << '\n'
-			<< state << '\n'
-			<< zip << '\n';
-	}
-
-ostream& operator<<(ostream& out, const Order& order){
-
-	return out;
-}
-
-void add_Order(Order 0) {
-	//insert
-}
-
-void remove_Order(Order o){
-	//traverse n remove
-}
+	friend ostream& operator<<(ostream& out, const Customer customer);		//display in console
 
 };
+
+
 
 #endif /* CUSTOMER_H_ */
