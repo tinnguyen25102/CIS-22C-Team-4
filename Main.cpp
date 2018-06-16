@@ -1,15 +1,16 @@
 /*
  * Main.cpp
- *
- *  Created on: Jun 4, 2018
- *      Author: melgharbawy
+ * Mohamed Elgharbawy
  */
 
 #include <iostream>
+
+#include "BST.h"
 #include "Customer.h"
 #include "Employee.h"
 #include "HashTable.h"
 #include "ProductS.h"
+#include "Heap.h"
 
 using namespace std;
 

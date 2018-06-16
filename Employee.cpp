@@ -1,8 +1,6 @@
 /*
  * Employee.cpp
- *
- *  Created on: Jun 7, 2018
- *      Author: vupham
+ * Vu Pham
  */
 
 #include "Employee.h"

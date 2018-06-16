@@ -1,9 +1,8 @@
 /*
  * ProductS.h
- *
- *  Created on: May 30, 2018
- *      Author: vupham
+ * Vu Pham
  */
+
 
 #ifndef PRODUCTS_H_
 #define PRODUCTS_H_

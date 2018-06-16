@@ -1,8 +1,6 @@
 /*
  * Heap.h
- *
- *  Created on: Jun 2, 2018
- *      Author: Andrew Maxwell
+ * Andrew Maxwell
  */
 
 #ifndef HEAP_H_

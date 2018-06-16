@@ -1,8 +1,6 @@
 /*
  * List.h
- *
- *  Created on: Apr 11, 2018
- *  by Andrew Maxwell
+ * Andrew Maxwell
  */
 
 #ifndef LIST_H_

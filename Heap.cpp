@@ -1,14 +1,13 @@
 /*
  * Heap.cpp
- *
- *  Created on: Jun 2, 2018
- *      Author: Andrew Maxwell
+ * Andrew Maxwell
  */
 
 #include <vector>
 #include <iostream>
 #include <math.h>
 #include <assert.h>
+#include <sstream>
 #include "Heap.h"
 
 using namespace std;
@@ -164,7 +163,7 @@ bool DEBUG = false;
     }
 
     string Heap::printSorted() {
-    	stringstream out;
+    	stringstream out(" ");
     	int realLength = heap_size;
     	while (heap_size > 1) {
     		if (DEBUG) {

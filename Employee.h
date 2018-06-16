@@ -1,8 +1,6 @@
 /*
- * User.h
- *
- *  Created on: June 7, 2018
- *      Author: vupham
+ * Employee.h
+ * Vu Pham
  */
 
 #ifndef EMPLOYEE_H_

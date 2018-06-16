@@ -1,8 +1,6 @@
 /*
- * User.cpp
- *
- *  Created on: Jun 7, 2018
- *      Author: vupham
+ * User.h
+ * Vu Pham
  */
 
 #include "User.h"

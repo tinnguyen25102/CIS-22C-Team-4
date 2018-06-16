@@ -1,8 +1,6 @@
 /*
  * ProductS.cpp
- *
- *  Created on: May 30, 2018
- *      Author: vupham
+ * Vu Pham
  */
 
 #include "ProductS.h"
@@ -25,7 +23,7 @@ ProductS::ProductS(string make, string model, double screenSize, unsigned cpuGen
 	this->year = year;
 	this->price = price;
 }
-//void operator=(const ProductS& product);
+
 void ProductS::operator=(const ProductS& product) {
 	make = product.getMake();
 	model = product.getModel();

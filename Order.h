@@ -1,16 +1,13 @@
 /*
  * Order.h
- *
- *  Created on: Jun 2, 2018
- *      Author: Andrew Maxwell
+ * Andrew Maxwell
  */
 
 #ifndef ORDER_H_
 #define ORDER_H_
 
-#include "List.h"
-#include "SubOrder.h"
 #include "BST.h"
+#include "SubOrder.h"
 #include "Customer.h"
 #include <ctime>
 using namespace std;

@@ -1,8 +1,6 @@
 /*
  * Customer.cpp
- *
- *  Created on: Jun 7, 2018
- *      Author: vupham
+ * Tin Nguyen
  */
 
 #include "Customer.h"
@@ -70,9 +68,15 @@ void Customer::setEmail(string email) {
 	this->email = email;
 }
 
+
 void Customer::getOrder(ostream &out) const {
 	out << order;
 }
+
+/*void Customer::getOrderList(ostream &out) const {
+orders.displayList(out);	//TODO: Change this
+}*/
+
 
 void Customer::insertOrder(Order order) {
 	orders.insertStop(order);

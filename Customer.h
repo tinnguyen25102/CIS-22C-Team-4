@@ -1,3 +1,9 @@
+/*
+ * Customer.h
+ * Tin Nguyen
+ */
+
+
 #ifndef CUSTOMER_H_
 #define CUSTOMER_H_
 

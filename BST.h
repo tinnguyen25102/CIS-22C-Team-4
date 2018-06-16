@@ -1,8 +1,6 @@
 /*
  * BST.h
- *
- *  Created on: May 30, 2018
- *      Author: vupham
+ * Vu Pham
  */
 
 #ifndef BST_H_
